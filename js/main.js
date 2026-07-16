@@ -139,16 +139,87 @@
     if (y && !isNaN(y)) yearEl.textContent = y;
   }
 
-  /* --- Reveal-on-scroll (progressive enhancement) ----------------- */
-  var reveals = $$(".reveal");
+  /* --- Bilder: sanft aufblenden, sobald geladen ------------------- */
+  $$("img.img-fade").forEach(function (img) {
+    if (img.complete && img.naturalWidth) img.classList.add("is-loaded");
+    else img.addEventListener("load", function () { img.classList.add("is-loaded"); }, { once: true });
+    // Falls ein Bild fehlt: nicht unsichtbar stehen lassen
+    img.addEventListener("error", function () { img.classList.add("is-loaded"); }, { once: true });
+  });
+
+  /* --- Gestaffelte Reveals in Grids (Kaskade statt Blockwechsel) --- */
+  [".menu-grid", ".team-grid", ".cards", ".steps", ".trustbar__grid"].forEach(function (sel) {
+    $$(sel).forEach(function (grid) {
+      Array.prototype.slice.call(grid.children).forEach(function (el, i) {
+        el.style.setProperty("--d", Math.min(i, 5) * 80 + "ms");
+      });
+    });
+  });
+
+  /* --- Zahlen hochzaehlen (Trust-Bar) ----------------------------- */
+  function countUp(el) {
+    var to = parseFloat(el.getAttribute("data-to"));
+    var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
+    if (isNaN(to)) return;
+    var dur = 1100, t0 = null;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3); // ease-out
+      el.textContent = (to * eased).toFixed(dec);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = to.toFixed(dec);
+    }
+    requestAnimationFrame(step);
+  }
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- Reveal-on-scroll (progressive enhancement) -----------------
+     Die Animation ist Kür. Sichtbarer Inhalt ist Pflicht: Wenn der
+     IntersectionObserver fehlt ODER (aus welchem Grund auch immer) nicht
+     feuert, wird nach kurzer Zeit trotzdem alles sichtbar gemacht.
+     Eine Landingpage darf nie leer bleiben. */
+  function finishCount(c) {
+    c.textContent = parseFloat(c.getAttribute("data-to"))
+      .toFixed(parseInt(c.getAttribute("data-decimals") || "0", 10));
+  }
+  function revealAll() {
+    // Ohne Animation, damit der Inhalt auch dann erscheint, wenn CSS-Transitions
+    // nicht anlaufen — sonst bliebe die Seite bei opacity 0 haengen.
+    document.documentElement.classList.add("no-anim");
+    reveals.forEach(function (el) { el.classList.add("is-in"); });
+    $$("img.img-fade").forEach(function (i) { i.classList.add("is-loaded"); });
+    $$(".count").forEach(function (c) {
+      if (c.dataset.done) return;
+      c.dataset.done = "1";
+      finishCount(c);
+    });
+  }
+
+  var reveals = $$(".reveal, .stagger");
   if ("IntersectionObserver" in window && reveals.length) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+        if (!en.isIntersecting) return;
+        en.target.classList.add("is-in");
+        $$(".count", en.target).forEach(function (c) {
+          if (c.dataset.done) return;
+          c.dataset.done = "1";
+          if (reduceMotion) finishCount(c);
+          else countUp(c);
+        });
+        io.unobserve(en.target);
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     reveals.forEach(function (el) { io.observe(el); });
+
+    // Sicherheitsnetz: Hat der Observer nach 1.5s nichts eingeblendet,
+    // gilt er als wirkungslos -> Inhalt ohne Animation zeigen.
+    setTimeout(function () {
+      if (!document.querySelector(".reveal.is-in, .stagger.is-in")) revealAll();
+    }, 1500);
   } else {
-    reveals.forEach(function (el) { el.classList.add("is-in"); });
+    revealAll();
   }
 })();

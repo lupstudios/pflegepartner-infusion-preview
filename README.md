@@ -3,9 +3,9 @@
 Nicht freigegebene **Vorschau** einer Conversion-Landingpage für die Infusionen
 zuhause von Pflegepartner AG. Erstellt von LUP Studios.
 
-**Live-Vorschau:** siehe GitHub-Pages-URL in den Repo-Settings.
+Bilder (Hero, Team, Produkte) stammen von pflegepartner.ch und wurden für Web
+optimiert (8.5 MB → ~790 KB).
 
-> ⚠️ Diese Vorschau ist bewusst auf `noindex, nofollow` gesetzt und via `robots.txt`
-> vom Crawling ausgeschlossen, damit sie nicht indexiert wird und nicht mit
-> pflegepartner.ch konkurriert. Vor dem Livegang: Freigabe (Precheck) durch
-> Pflegepartner, echte Fotos, Tracking-IDs und Formular-Endpoint einsetzen.
+> ⚠️ Bewusst auf `noindex, nofollow` + `robots.txt Disallow` gesetzt, damit die
+> Vorschau nicht indexiert wird und nicht mit pflegepartner.ch konkurriert.
+> Vor Livegang: Freigabe (Precheck), Tracking-IDs und Formular-Endpoint einsetzen.

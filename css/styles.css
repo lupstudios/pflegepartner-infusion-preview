@@ -125,33 +125,33 @@ button { font-family: inherit; cursor: pointer; }
 .hero__trust .dot { color: var(--pp-rose); }
 .hero__trust .star { color: var(--pp-red); }
 
-/* Platzhalter-Bilder */
-.ph {
+/* --- Bilder ------------------------------------------------------- */
+/* Rahmen mit warmem Rosa-Verlauf als Ladehintergrund (kein weisses Aufblitzen) */
+.media {
   position: relative; border-radius: var(--radius); overflow: hidden;
-  background:
-    radial-gradient(120% 120% at 80% 15%, rgba(248,40,40,.16), transparent 55%),
-    linear-gradient(150deg, var(--pp-rose) 0%, var(--pp-rose-tint) 55%, #fff 100%);
-  box-shadow: var(--pp-shadow);
-  display: grid; place-items: center; isolation: isolate;
+  background: linear-gradient(150deg, var(--pp-rose) 0%, var(--pp-rose-tint) 60%, #fff 100%);
+  box-shadow: var(--pp-shadow); margin: 0;
 }
-.ph::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M100 45 L150 88 L150 150 L50 150 L50 88 Z' fill='none' stroke='%23E84030' stroke-width='6' stroke-opacity='.10' stroke-linejoin='round'/%3E%3Cpath d='M100 100 v34 M83 117 h34' stroke='%23E84030' stroke-width='6' stroke-opacity='.10' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: center; background-size: 62%;
+.media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Sanftes Aufblenden, sobald das Bild geladen ist */
+.img-fade { opacity: 0; transition: opacity .7s ease; }
+.img-fade.is-loaded { opacity: 1; }
+.no-js .img-fade, .img-fade.is-loaded { opacity: 1; }
+
+/* Ken-Burns: sehr langsamer Zoom — Premium-Ruhe, kein Effekt-Feuerwerk */
+@keyframes kenburns {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to   { transform: scale(1.07) translate3d(0, -1.2%, 0); }
 }
-.ph__label {
-  position: absolute; bottom: .9rem; left: .9rem;
-  background: rgba(255,255,255,.82); color: var(--pp-ink-soft);
-  font-size: .72rem; font-weight: 600; letter-spacing: .02em;
-  padding: .35rem .7rem; border-radius: 100px; backdrop-filter: blur(4px);
-  display: inline-flex; align-items: center; gap: .4rem;
-}
-.ph__label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--pp-red); }
+.kenburns { animation: kenburns 20s ease-in-out infinite alternate; will-change: transform; }
+
 .hero__media { aspect-ratio: 4 / 3.4; order: -1; margin-bottom: .3rem; } /* Mobile: Foto oben, Text drunter (lt. Briefing) */
+.hero__media img { object-position: 50% 26%; }
 
 @media (min-width: 860px) {
   .hero__grid { grid-template-columns: 1.05fr .95fr; }
-  .hero__media { aspect-ratio: 4 / 4.7; order: 0; margin-bottom: 0; }
+  .hero__media { aspect-ratio: 4 / 4.6; order: 0; margin-bottom: 0; }
 }
 
 /* --- Trust-Bar ---------------------------------------------------- */
@@ -189,9 +189,18 @@ button { font-family: inherit; cursor: pointer; }
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .menu-card:hover { transform: translateY(-4px); box-shadow: var(--pp-shadow); border-color: var(--pp-rose); }
-.menu-card__top { display: flex; align-items: center; gap: .7rem; }
-.menu-card__ico { width: 40px; height: 40px; border-radius: 11px; background: var(--pp-rose-tint); color: var(--pp-red); display: grid; place-items: center; flex: none; }
-.menu-card__ico svg { width: 22px; height: 22px; }
+/* Produktbild (echtes Vial) auf weichem Rosa-Grund */
+.menu-card__media {
+  height: 190px; border-radius: var(--radius-sm); overflow: hidden;
+  background: radial-gradient(120% 100% at 50% 20%, #fff 0%, var(--pp-rose-tint) 100%);
+  padding: 1rem;
+}
+.menu-card__media img {
+  width: 100%; height: 100%; object-fit: contain; /* ganzes Vial sichtbar, nichts abgeschnitten */
+  transition: transform .45s cubic-bezier(.2, .7, .3, 1);
+  filter: drop-shadow(0 10px 18px rgba(196, 46, 32, .18));
+}
+.menu-card:hover .menu-card__media img { transform: translateY(-5px) scale(1.05); }
 .menu-card h3 { font-size: 1.2rem; }
 .menu-card p { color: var(--pp-ink-soft); font-size: .95rem; flex-grow: 1; }
 .menu-card__foot { display: flex; align-items: center; justify-content: space-between; gap: .6rem; margin-top: .3rem; padding-top: .9rem; border-top: 1px solid var(--pp-line); }
@@ -232,22 +241,24 @@ button { font-family: inherit; cursor: pointer; }
 .step p { color: var(--pp-ink-soft); font-size: .96rem; }
 
 /* --- Team --------------------------------------------------------- */
-.team { display: grid; gap: clamp(1.6rem, 5vw, 3rem); align-items: center; }
-@media (min-width: 860px) { .team { grid-template-columns: 1fr 1fr; } }
-.team__media { aspect-ratio: 5 / 4; }
-.team h2 { font-size: clamp(1.7rem, 4.5vw, 2.5rem); margin-bottom: 1rem; }
-.team p { color: var(--pp-ink-soft); font-size: 1.05rem; }
-.team p + p { margin-top: 1rem; }
-
-/* Team-Grid (echtes Team) */
 .team-grid { display: grid; gap: 1.1rem; grid-template-columns: repeat(2, 1fr); }
 @media (min-width: 840px) { .team-grid { grid-template-columns: repeat(4, 1fr); } }
-.member { background: #fff; border: 1px solid var(--pp-line); border-radius: var(--radius); padding: 1.5rem 1.2rem; text-align: center; }
-.member__photo {
-  width: 96px; height: 96px; border-radius: 50%; margin: 0 auto 1rem; display: grid; place-items: center;
-  background: linear-gradient(150deg, var(--pp-rose), var(--pp-rose-tint)); color: var(--pp-red);
+.member {
+  background: #fff; border: 1px solid var(--pp-line); border-radius: var(--radius);
+  padding: 1.5rem 1.2rem; text-align: center;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
-.member__photo svg { width: 46px; height: 46px; opacity: .6; }
+.member:hover { transform: translateY(-4px); box-shadow: var(--pp-shadow); border-color: var(--pp-rose); }
+.member__photo {
+  width: 112px; height: 112px; border-radius: 50%; margin: 0 auto 1rem; overflow: hidden;
+  background: linear-gradient(150deg, var(--pp-rose), var(--pp-rose-tint));
+  box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--pp-rose-tint);
+}
+.member__photo img {
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%;
+  transition: transform .5s ease;
+}
+.member:hover .member__photo img { transform: scale(1.07); }
 .member h3 { font-size: 1.08rem; }
 .member__role { display: block; color: var(--pp-red-deep); font-weight: 600; font-size: .82rem; font-family: var(--font-head); margin: .2rem 0 .65rem; }
 .member p { color: var(--pp-ink-soft); font-size: .9rem; }
@@ -348,6 +359,39 @@ body { padding-bottom: 76px; }
 
 /* Reveal-on-scroll (progressive enhancement) — nur wenn JS aktiv ist.
    Ohne .js-Klasse (JS deaktiviert/fehlgeschlagen) bleibt der Inhalt sichtbar. */
-.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .7s cubic-bezier(.2, .7, .3, 1), transform .7s cubic-bezier(.2, .7, .3, 1);
+  transition-delay: var(--d, 0ms);
+}
 .js .reveal.is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }
+
+/* Hero: Zeile fuer Zeile statt als Block — der teure Einstieg */
+.js .stagger > * {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .8s cubic-bezier(.2, .7, .3, 1), transform .8s cubic-bezier(.2, .7, .3, 1);
+}
+.js .stagger.is-in > * { opacity: 1; transform: none; }
+.js .stagger.is-in > *:nth-child(1) { transition-delay: .05s; }
+.js .stagger.is-in > *:nth-child(2) { transition-delay: .15s; }
+.js .stagger.is-in > *:nth-child(3) { transition-delay: .25s; }
+.js .stagger.is-in > *:nth-child(4) { transition-delay: .35s; }
+.js .stagger.is-in > *:nth-child(5) { transition-delay: .45s; }
+
+/* Zahlen zaehlen hoch (Trust-Bar) — tabellarisch, damit nichts springt */
+.count { font-variant-numeric: tabular-nums; }
+
+/* Notbremse: Inhalt sofort und ohne Animation zeigen.
+   Wird von main.js gesetzt, wenn die Reveal-Animation nicht greift —
+   dann zaehlt nur noch, dass der Inhalt da ist. */
+.js.no-anim .reveal,
+.js.no-anim .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+.js.no-anim .img-fade { opacity: 1 !important; transition: none !important; }
+
+/* Barrierefreiheit: wer Bewegung reduziert, bekommt keine */
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal, .js .stagger > * { opacity: 1; transform: none; transition: none; }
+  .kenburns { animation: none; }
+  .img-fade { opacity: 1; transition: none; }
+  .menu-card:hover, .member:hover { transform: none; }
+}

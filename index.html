@@ -130,7 +130,7 @@
   <!-- ============================ HERO ============================ -->
   <section class="hero">
     <div class="wrap hero__grid">
-      <div class="hero__copy reveal">
+      <div class="hero__copy stagger">
         <span class="eyebrow">
           <svg class="house" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 14 L50 30 V50 H14 V30 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M32 32 v12 M26 38 h12" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
           Infusionen im Zürcher Unterland
@@ -150,30 +150,32 @@
         </p>
       </div>
 
-      <div class="hero__media ph reveal" role="img" aria-label="Platzhalter: Pflegefachfrau legt zuhause im warmen Wohnzimmer eine Infusion an.">
-        <span class="ph__label">Platzhalter — echtes Foto aus Content Day</span>
-      </div>
+      <figure class="hero__media media reveal">
+        <img src="assets/img/hero-pflegefachfrau.jpg" width="1100" height="733"
+             alt="Marijana Petkovic, diplomierte Pflegefachfrau HF von Pflegepartner, in warmer häuslicher Umgebung"
+             class="kenburns img-fade" fetchpriority="high" decoding="async">
+      </figure>
     </div>
   </section>
 
   <!-- ============================ TRUST-BAR ============================ -->
   <section class="trustbar" aria-label="Vertrauen">
     <div class="wrap trustbar__grid">
-      <div class="trustbar__item">
+      <div class="trustbar__item reveal">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 4.5-3 8.3-7 9.5C8 19.3 5 15.5 5 11V5l7-3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div><strong>Ärztlich begleitet</strong><small>Dr. Porchet</small></div>
       </div>
-      <div class="trustbar__item">
+      <div class="trustbar__item reveal">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-3.3 3.6-5 8-5s8 1.7 8 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         <div><strong>Von Pflegefachfrauen</strong><small>verabreicht</small></div>
       </div>
-      <div class="trustbar__item">
+      <div class="trustbar__item reveal">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
         <div><strong>Ganzes Zürcher Unterland</strong><small>wir kommen zu dir</small></div>
       </div>
-      <div class="trustbar__item">
+      <div class="trustbar__item reveal">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.2l1-5.8L3.5 9.2l5.9-.9L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="currentColor" fill-opacity=".12"/></svg>
-        <div><strong>4.8 ★ auf Google</strong><small>25 Rezensionen</small></div>
+        <div><strong><span class="count" data-to="4.8" data-decimals="1">4.8</span> ★ auf Google</strong><small><span class="count" data-to="25">25</span> Rezensionen</small></div>
       </div>
     </div>
   </section>
@@ -222,10 +224,10 @@
       <div class="menu-grid">
         <!-- Immune Boost -->
         <article class="menu-card reveal">
-          <div class="menu-card__top">
-            <span class="menu-card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l6 2.5v5c0 4-2.6 7.2-6 8.5-3.4-1.3-6-4.5-6-8.5v-5L12 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 12l1.7 1.7 3.3-3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <h3>Immune Boost</h3>
+          <div class="menu-card__media">
+            <img src="assets/img/p-immune.png" alt="Immune-Boost-Infusion — Vial" loading="lazy" decoding="async" class="img-fade">
           </div>
+          <h3>Immune Boost</h3>
           <p>Vitamine, Antioxidantien und Elektrolyte für dein Immunsystem — besonders in der Erkältungszeit oder wenn dein Körper geschwächt ist.</p>
           <div class="menu-card__foot">
             <span class="price">CHF 299</span>
@@ -235,10 +237,10 @@
 
         <!-- Energy / Regeneration -->
         <article class="menu-card reveal">
-          <div class="menu-card__top">
-            <span class="menu-card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 2L5 14h5l-1 8 8-12h-5l1-8z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-            <h3>Recovery / Hangover-Boost</h3>
+          <div class="menu-card__media">
+            <img src="assets/img/p-recovery.png" alt="Recovery- / Hangover-Boost-Infusion — Vial" loading="lazy" decoding="async" class="img-fade">
           </div>
+          <h3>Recovery / Hangover-Boost</h3>
           <p>Schnelle Erholung nach Sport, Krankheit oder einer langen Nacht — Flüssigkeit und Nährstoffe zurück in Balance.</p>
           <div class="menu-card__foot">
             <span class="price">CHF 289</span>
@@ -248,10 +250,10 @@
 
         <!-- Beauty Drip -->
         <article class="menu-card reveal">
-          <div class="menu-card__top">
-            <span class="menu-card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3s6 6.5 6 11a6 6 0 11-12 0c0-4.5 6-11 6-11z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-            <h3>Beauty-Cocktail (NAD+)</h3>
+          <div class="menu-card__media">
+            <img src="assets/img/p-beauty.png" alt="Beauty-Cocktail mit NAD+ — Vial" loading="lazy" decoding="async" class="img-fade">
           </div>
+          <h3>Beauty-Cocktail (NAD+)</h3>
           <p>NAD+ kombiniert mit ausgewählten Vitaminen — für Zellregeneration, Vitalität und Ausstrahlung von innen.</p>
           <div class="menu-card__foot">
             <span class="price">CHF 899</span>
@@ -261,10 +263,10 @@
 
         <!-- NAD+ -->
         <article class="menu-card reveal">
-          <div class="menu-card__top">
-            <span class="menu-card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/><ellipse cx="12" cy="12" rx="10" ry="4.4" stroke="currentColor" stroke-width="1.5"/><ellipse cx="12" cy="12" rx="10" ry="4.4" stroke="currentColor" stroke-width="1.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.4" stroke="currentColor" stroke-width="1.5" transform="rotate(120 12 12)"/></svg></span>
-            <h3>NAD+</h3>
+          <div class="menu-card__media">
+            <img src="assets/img/p-nad.png" alt="NAD+-Infusion — Vial" loading="lazy" decoding="async" class="img-fade">
           </div>
+          <h3>NAD+</h3>
           <p>Der Longevity-Klassiker — unterstützt Zellenergie, Regeneration und mentale Klarheit in Phasen erhöhter Belastung.</p>
           <div class="menu-card__foot">
             <span class="price">CHF 580</span>
@@ -274,10 +276,10 @@
 
         <!-- Vitamin C Hochdosis -->
         <article class="menu-card reveal">
-          <div class="menu-card__top">
-            <span class="menu-card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.3" opacity=".5"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/></svg></span>
-            <h3>Vitaminpräparat</h3>
+          <div class="menu-card__media">
+            <img src="assets/img/p-vitaminpraeparat.png" alt="Vitamin-Einzelpräparat — Vial" loading="lazy" decoding="async" class="img-fade">
           </div>
+          <h3>Vitaminpräparat</h3>
           <p>Einzelne Vitamine (A, B, C, D) — gezielt nach deinem Bedarf, einzeln oder sinnvoll kombiniert.</p>
           <div class="menu-card__foot">
             <span class="price">ab CHF 200</span>
@@ -287,10 +289,10 @@
 
         <!-- Vital+ (individueller Nährstoff-Mix) -->
         <article class="menu-card reveal">
-          <div class="menu-card__top">
-            <span class="menu-card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16l-7 8v6l-2 1v-7L4 4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-            <h3>Vital+</h3>
+          <div class="menu-card__media">
+            <img src="assets/img/p-vital.png" alt="Vital+ Nährstoff-Infusion — Vial" loading="lazy" decoding="async" class="img-fade">
           </div>
+          <h3>Vital+</h3>
           <p>Dein individueller Nährstoff-Mix aus Vitaminen und Mineralstoffen — gemeinsam mit dem Arzt auf dich abgestimmt.</p>
           <div class="menu-card__foot">
             <span class="price">CHF 249</span>
@@ -300,10 +302,10 @@
 
         <!-- Glutathion -->
         <article class="menu-card reveal">
-          <div class="menu-card__top">
-            <span class="menu-card__ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l7 3v6c0 4.5-3 8.3-7 9.5C8 19.3 5 15.5 5 11V5l7-3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-            <h3>Glutathion</h3>
+          <div class="menu-card__media">
+            <img src="assets/img/p-glutathion.png" alt="Glutathion-Infusion — Vial" loading="lazy" decoding="async" class="img-fade">
           </div>
+          <h3>Glutathion</h3>
           <p>Das körpereigene Antioxidans — Unterstützung für Zellschutz und Regeneration in belastenden Phasen.</p>
           <div class="menu-card__foot">
             <span class="price">CHF 260</span>
@@ -354,8 +356,8 @@
 
       <div class="team-grid">
         <article class="member reveal">
-          <div class="member__photo" role="img" aria-label="Platzhalter-Porträt Dr. Frédéric Porchet">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-3.3 3.6-5 8-5s8 1.7 8 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div class="member__photo">
+            <img src="assets/img/team-porchet.jpg" alt="Dr. Frédéric Porchet, ärztlicher Support bei Pflegepartner AG" loading="lazy" decoding="async" class="img-fade">
           </div>
           <h3>Dr. Frédéric Porchet</h3>
           <span class="member__role">Ärztlicher Support</span>
@@ -363,8 +365,8 @@
         </article>
 
         <article class="member reveal">
-          <div class="member__photo" role="img" aria-label="Platzhalter-Porträt Marijana Petkovic">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-3.3 3.6-5 8-5s8 1.7 8 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div class="member__photo">
+            <img src="assets/img/team-marijana.jpg" alt="Marijana Petkovic, dipl. Pflegefachfrau HF bei Pflegepartner AG" loading="lazy" decoding="async" class="img-fade">
           </div>
           <h3>Marijana Petkovic</h3>
           <span class="member__role">Dipl. Pflegefachfrau HF</span>
@@ -372,8 +374,8 @@
         </article>
 
         <article class="member reveal">
-          <div class="member__photo" role="img" aria-label="Platzhalter-Porträt Alessia Van Bael">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-3.3 3.6-5 8-5s8 1.7 8 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div class="member__photo">
+            <img src="assets/img/team-alessia.jpg" alt="Alessia Van Bael, dipl. Pflegefachfrau HF bei Pflegepartner AG" loading="lazy" decoding="async" class="img-fade">
           </div>
           <h3>Alessia Van Bael</h3>
           <span class="member__role">Dipl. Pflegefachfrau HF</span>
@@ -381,15 +383,14 @@
         </article>
 
         <article class="member reveal">
-          <div class="member__photo" role="img" aria-label="Platzhalter-Porträt Emilia Kanjo">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c0-3.3 3.6-5 8-5s8 1.7 8 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <div class="member__photo">
+            <img src="assets/img/team-emilia.jpg" alt="Emilia Kanjo, Pflegefachfrau bei Pflegepartner AG" loading="lazy" decoding="async" class="img-fade">
           </div>
           <h3>Emilia Kanjo</h3>
           <span class="member__role">Pflegefachfrau</span>
           <p>Über 15 Jahre Erfahrung in Akutspital und ambulanter Pflege — sorgt für Sicherheit und persönliche Betreuung.</p>
         </article>
       </div>
-      <p class="team-note reveal">Platzhalter-Porträts — echte Team-Fotos liegen vor (auf pflegepartner.ch) und werden vor dem Livegang eingesetzt.</p>
     </div>
   </section>
 
