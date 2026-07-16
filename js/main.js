@@ -1,0 +1,154 @@
+/* =============================================================
+   Pflegepartner AG — Infusions-Landingpage · main.js
+   Minimal JS: Menü-Prefill, Smooth-Scroll, Tracking, Formular.
+   ============================================================= */
+(function () {
+  "use strict";
+
+  /* --- KONFIG: vor Livegang anpassen ------------------------------ */
+  // Formspree / Make-Endpoint für Lead-Weiterleitung (Zieladresse intern konfigurieren).
+  // Solange leer, wird kein Request gesendet (Seite funktioniert trotzdem: Tracking + /danke).
+  var FORM_ENDPOINT = ""; // z.B. "https://formspree.io/f/xxxxxxx"
+  var THANKS_URL = "danke.html"; // eigene URL /danke für sauberes Conversion-Tracking
+  // Google-Ads Conversion-Label (TODO): "AW-XXXXXXXXXX/xxxxxxxxxxxxxxx"
+  var GADS_SEND_TO = "";
+
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* --- Tracking-Helfer (fallen still aus, wenn Pixel/gtag nicht aktiv) --- */
+  function trackLead(payload) {
+    try { if (window.fbq) window.fbq("track", "Lead", payload || {}); } catch (e) {}
+    try {
+      if (window.gtag && GADS_SEND_TO) window.gtag("event", "conversion", { send_to: GADS_SEND_TO });
+      if (window.dataLayer) window.dataLayer.push({
+        event: "lead_submit",
+        infusion: (payload && payload.infusion) || "",
+        ziel: (payload && payload.ziel) || "",
+        zeitraum: (payload && payload.zeitraum) || ""
+      });
+    } catch (e) {}
+  }
+  function trackPhone() {
+    try { if (window.fbq) window.fbq("track", "Contact", { method: "phone" }); } catch (e) {}
+    try {
+      if (window.gtag && GADS_SEND_TO) window.gtag("event", "conversion", { send_to: GADS_SEND_TO });
+      if (window.dataLayer) window.dataLayer.push({ event: "phone_click" });
+    } catch (e) {}
+  }
+
+  /* --- Smooth-Scroll für interne Anker ---------------------------- */
+  function scrollToId(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var headerH = 68;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - headerH;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href").slice(1);
+      if (!id || !document.getElementById(id)) return;
+      e.preventDefault();
+      scrollToId(id);
+      history.replaceState(null, "", "#" + id);
+    });
+  });
+
+  /* --- Menü „Anfragen" → Dropdown vorbefüllen + zum Formular ------- */
+  var infusionSelect = $("#infusion");
+  $$(".btn-inquire").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var name = btn.getAttribute("data-infusion") || "";
+      if (infusionSelect && name) {
+        var matched = false;
+        $$("option", infusionSelect).forEach(function (opt) {
+          if (opt.value === name || opt.textContent.trim() === name) { infusionSelect.value = opt.value || name; matched = true; }
+        });
+        if (!matched) infusionSelect.value = name;
+      }
+      scrollToId("anfrage");
+      // kurze visuelle Bestätigung
+      setTimeout(function () {
+        var nameField = $("#name");
+        if (nameField) nameField.focus({ preventScroll: true });
+      }, 500);
+    });
+  });
+
+  /* --- Telefon-Klicks tracken ------------------------------------- */
+  $$('a[href^="tel:"]').forEach(function (a) {
+    a.addEventListener("click", trackPhone);
+  });
+
+  /* --- PLZ-Softcheck: sanfter Hinweis ausserhalb Region (nicht blockierend) --- */
+  var plzInput = $("#plz");
+  var plzHint = $("#plz-hint");
+  if (plzInput && plzHint) {
+    plzInput.addEventListener("input", function () {
+      var v = plzInput.value.replace(/\D/g, "");
+      var inArea = /^8\d{3}$/.test(v); // Grossraum Zürich = PLZ 8xxx
+      plzHint.hidden = !(v.length === 4 && !inArea);
+    });
+  }
+
+  /* --- Formular ---------------------------------------------------- */
+  var form = $("#lead-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+
+      var submitBtn = $('button[type="submit"]', form);
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Wird gesendet …"; }
+
+      function val(sel) { var el = $(sel); return el ? el.value.trim() : ""; }
+      var data = {
+        ziel:     val("#ziel"),
+        zeitraum: val("#zeitraum"),
+        plz:      val("#plz"),
+        infusion: infusionSelect ? infusionSelect.value : "",
+        name:     val("#name"),
+        phone:    val("#phone"),
+        email:    val("#email"),
+        message:  val("#message"),
+        _subject: "Neue Infusions-Anfrage (Landingpage)"
+      };
+
+      trackLead({ ziel: data.ziel, infusion: data.infusion, zeitraum: data.zeitraum });
+
+      function done() { window.location.href = THANKS_URL; }
+
+      if (FORM_ENDPOINT) {
+        fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        }).then(done).catch(done);
+      } else {
+        // Kein Endpoint konfiguriert: Tracking ist gefeuert, direkt zur Dankeseite.
+        done();
+      }
+    });
+  }
+
+  /* --- Jahr im Footer --------------------------------------------- */
+  var yearEl = $("#year");
+  if (yearEl) {
+    var y = new Date().getFullYear();
+    if (y && !isNaN(y)) yearEl.textContent = y;
+  }
+
+  /* --- Reveal-on-scroll (progressive enhancement) ----------------- */
+  var reveals = $$(".reveal");
+  if ("IntersectionObserver" in window && reveals.length) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add("is-in"); });
+  }
+})();

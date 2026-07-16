@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danke — wir melden uns | Pflegepartner AG</title>
+<meta name="description" content="Deine Anfrage ist bei uns. Wir melden uns für deine kostenlose Erstberatung.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#E84030">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- ================================================================
+     CONVERSION-BESTÄTIGUNG — /danke ist die dedizierte Conversion-URL.
+     Hier feuern die „bestätigten Lead"-Events (Deduplizierung serverseitig).
+     ================================================================ -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: "lead_thankyou" });
+  window.fbq = window.fbq || function(){ (window.fbq.q = window.fbq.q || []).push(arguments); };
+  // fbq('track', 'Lead');                    // aktivieren, sobald Pixel geladen ist
+  // gtag('event','conversion',{send_to:'AW-XXXXXXXXXX/xxxxxxxxxxxxxxx'});
+</script>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a href="index.html#top" class="brand" aria-label="Pflegepartner AG — Startseite">
+      <svg class="brand__logo" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="#F82828" stroke-width="4"/>
+        <path d="M32 14 L50 30 V50 H14 V30 Z" fill="#E84030"/>
+        <path d="M32 30 v14 M25 37 h14" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+      </svg>
+      <span class="brand__name">Pflegepartner<span>Infusionen zuhause</span></span>
+    </a>
+    <a href="tel:+41445250220" class="btn btn--primary">044 525 02 20</a>
+  </div>
+</header>
+
+<main>
+  <section class="wrap thanks">
+    <div>
+      <div class="thanks__check">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h1>Danke — deine Anfrage ist da.</h1>
+      <p>Wir haben deine Anfrage erhalten und melden uns so schnell wie möglich für deine kostenlose Erstberatung. Meist noch am selben Tag.</p>
+      <p style="font-size:.98rem">Dringend? Ruf uns direkt an: <a href="tel:+41445250220">044 525 02 20</a></p>
+      <a href="index.html#top" class="btn btn--ghost" style="margin-top:.6rem">Zurück zur Startseite</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__bottom" style="border:0;margin:0;padding-top:0">
+    <span>© <span id="year">2026</span> Pflegepartner AG · Bramenstrasse 5 · 8184 Bachenbülach</span>
+    <span><a href="https://pflegepartner.ch" target="_blank" rel="noopener">pflegepartner.ch</a></span>
+  </div>
+</footer>
+
+<script>
+  (function(){ var y=document.getElementById('year'); var n=new Date().getFullYear(); if(y&&n&&!isNaN(n)) y.textContent=n; })();
+</script>
+</body>
+</html>
