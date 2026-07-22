@@ -83,6 +83,55 @@
   .vit-bar { transition: none; }
   .vit-opt, .step:hover, .card-benefit:hover { transform: none; }
 }
+
+/* --- Produkt-Buehne: 3D-Tilt, Orbit-Badges, Glanz --- */
+.vit-media { perspective: 950px; }
+.vit-tilt { position: relative; z-index: 1; border-radius: var(--radius); transform-style: preserve-3d; will-change: transform; transition: transform .25s ease-out; }
+.vit-tilt .media { box-shadow: 0 30px 70px -28px rgba(105, 8, 15, .4); }
+.vit-glare { position: absolute; inset: 0; border-radius: var(--radius); background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, .42), transparent 62%); opacity: 0; transition: opacity .3s ease; pointer-events: none; z-index: 2; }
+.vit-tilt.is-tilting { transition: none; }
+.vit-tilt.is-tilting .vit-glare { opacity: 1; }
+.vit-gleam { position: absolute; top: 0; bottom: 0; left: -70%; width: 45%; transform: skewX(-18deg); background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .5), transparent); animation: vitGleam 7s ease-in-out infinite 2s; pointer-events: none; z-index: 2; }
+@keyframes vitGleam { 0%, 70% { left: -70%; opacity: 0; } 76% { opacity: .9; } 88%, 100% { left: 135%; opacity: 0; } }
+
+.vit-orbit { position: absolute; inset: -8%; animation: vitSpin 30s linear infinite; z-index: 3; pointer-events: none; }
+.vit-sat { position: absolute; }
+.vit-sat.s1 { top: 0; left: 50%; }
+.vit-sat.s2 { top: 50%; left: 100%; }
+.vit-sat.s3 { top: 100%; left: 50%; }
+.vit-sat.s4 { top: 50%; left: 0; }
+.vit-sat i {
+  position: absolute; top: 0; left: 0; transform: translate(-50%, -50%);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--pp-rose); color: #fff;
+  font-family: var(--font-head); font-style: normal; font-weight: 700; font-size: .82rem;
+  display: grid; place-items: center;
+  box-shadow: 0 8px 20px -6px rgba(105, 8, 15, .35), 0 0 0 4px rgba(255, 255, 255, .55);
+  animation: vitSpinRev 30s linear infinite;
+  scale: 0; transition: scale .5s cubic-bezier(.2, 1.5, .4, 1);
+}
+.vit-media.is-in .vit-sat i { scale: 1; }
+.vit-media.is-in .vit-sat.s2 i { transition-delay: .15s; }
+.vit-media.is-in .vit-sat.s3 i { transition-delay: .3s; }
+.vit-media.is-in .vit-sat.s4 i { transition-delay: .45s; }
+@keyframes vitSpinRev { from { rotate: 360deg; } to { rotate: 0deg; } }
+
+/* Dekor-Parallax beim Scrollen (nur Ring + Orbit, Inhalt bleibt ruhig) */
+.vit-ring { translate: 0 var(--par, 0); }
+.vit-orbit { translate: 0 calc(var(--par, 0) * -0.6); }
+
+/* Headline: Unterstrich zeichnet sich */
+.p-hero h1 { position: relative; display: inline-block; }
+.p-hero h1::after { content: ""; position: absolute; left: 0; bottom: -8px; height: 5px; width: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--pp-red), var(--pp-rose)); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.2, .7, .3, 1) .55s; }
+.js .stagger.is-in h1::after { transform: scaleX(1); }
+.no-anim .p-hero h1::after { transform: scaleX(1); transition: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vit-gleam, .vit-orbit, .vit-sat i { animation: none !important; }
+  .vit-sat i { scale: 1; transition: none; }
+  .vit-tilt { transition: none; }
+  .p-hero h1::after { transform: scaleX(1); transition: none; }
+}
 </style>
 </head>
 
@@ -135,9 +184,19 @@
       </div>
       <div class="vit-media reveal">
         <span class="vit-ring" aria-hidden="true"></span>
+        <div class="vit-orbit" aria-hidden="true">
+          <span class="vit-sat s1"><i>A</i></span>
+          <span class="vit-sat s2"><i>B12</i></span>
+          <span class="vit-sat s3"><i>C</i></span>
+          <span class="vit-sat s4"><i>D</i></span>
+        </div>
+        <div class="vit-tilt" id="vit-tilt">
         <figure class="hero__media media p-media">
         <img src="assets/img/p-vitaminpraeparat.png" width="800" height="800" alt="Vitaminpräparat — Infusion von Pflegepartner AG" class="img-fade" fetchpriority="high" decoding="async">
         </figure>
+        <span class="vit-glare" aria-hidden="true"></span>
+        <span class="vit-gleam" aria-hidden="true"></span>
+        </div>
       </div>
     </div>
   </section>
@@ -521,6 +580,47 @@
     running = document.visibilityState === "visible";
     if (running) requestAnimationFrame(tick);
   });
+})();
+</script>
+<script>
+/* 3D-Tilt mit Glare + Scroll-Parallax fuer die Produkt-Buehne */
+(function () {
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var media = document.querySelector(".vit-media");
+  var tilt = document.getElementById("vit-tilt");
+  if (!media || !tilt) return;
+
+  if (!reduce && window.matchMedia("(pointer: fine)").matches) {
+    media.addEventListener("mousemove", function (e) {
+      var r = tilt.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width;
+      var py = (e.clientY - r.top) / r.height;
+      px = Math.max(0, Math.min(1, px)); py = Math.max(0, Math.min(1, py));
+      tilt.classList.add("is-tilting");
+      tilt.style.setProperty("--gx", (px * 100).toFixed(1) + "%");
+      tilt.style.setProperty("--gy", (py * 100).toFixed(1) + "%");
+      tilt.style.transform =
+        "rotateX(" + ((py - .5) * -9).toFixed(2) + "deg) " +
+        "rotateY(" + ((px - .5) * 11).toFixed(2) + "deg) scale(1.02)";
+    });
+    media.addEventListener("mouseleave", function () {
+      tilt.classList.remove("is-tilting");
+      tilt.style.transform = "";
+    });
+  }
+
+  if (!reduce) {
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        media.style.setProperty("--par", (Math.min(window.scrollY, 900) * -0.06).toFixed(1) + "px");
+        ticking = false;
+      });
+    }, { passive: true });
+  }
 })();
 </script>
 <script src="js/main.js"></script>
