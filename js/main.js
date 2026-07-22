@@ -113,6 +113,7 @@
         email:    val("#email"),
         message:  val("#message"),
         consent:  ($("#consent") && $("#consent").checked) ? "ja" : "",
+        source:   location.href,
         _subject: "Neue Infusions-Anfrage (Landingpage)"
       };
 
