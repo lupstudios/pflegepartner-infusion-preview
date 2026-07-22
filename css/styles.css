@@ -397,3 +397,27 @@ body { padding-bottom: 76px; }
   .img-fade { opacity: 1; transition: none; }
   .menu-card:hover, .member:hover { transform: none; }
 }
+
+/* --- Produktseiten -------------------------------------------------- */
+.p-hero .hero__media.p-media {
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(120% 100% at 50% 20%, #fff 0%, var(--pp-rose-tint) 100%);
+  padding: 2rem;
+}
+.p-media img { object-fit: contain; filter: drop-shadow(0 14px 24px rgba(105, 8, 15, .18)); }
+.p-price { margin-top: .9rem; display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; }
+.p-price__val { font-family: var(--font-head); font-weight: 700; font-size: 1.9rem; color: var(--pp-red); font-variant-numeric: tabular-nums; }
+.p-price__note { font-size: .86rem; color: var(--pp-ink-soft); }
+.p-bullets { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: .55rem; }
+.p-bullets li { display: flex; gap: .6rem; align-items: flex-start; font-size: .98rem; }
+.p-tick { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--pp-red); color: #fff; display: grid; place-items: center; font-size: .72rem; font-weight: 700; margin-top: 1px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: .55rem; justify-content: flex-start; }
+.chip-row--center { justify-content: center; }
+.chip { background: #fff; border: 1px solid var(--pp-line); border-radius: 100px; padding: .5rem 1rem; font-size: .9rem; font-weight: 500; }
+.chip--link { color: var(--pp-red-deep); text-decoration: none; transition: border-color .16s ease, background .16s ease; }
+.chip--link:hover { border-color: var(--pp-red); background: var(--pp-rose-tint); text-decoration: none; }
+.p-wer { max-width: 46rem; margin: 2rem auto 0; background: #fff; border: 1px solid var(--pp-line); border-radius: var(--radius); padding: 1.6rem 1.6rem; }
+.p-wer h3 { font-size: 1.12rem; margin-bottom: .5rem; }
+.p-wer p { color: var(--pp-ink-soft); font-size: .97rem; }
+.menu-card__more { font-family: var(--font-head); font-weight: 600; font-size: .88rem; color: var(--pp-red-deep); text-decoration: none; }
+.menu-card__more:hover { text-decoration: underline; }
