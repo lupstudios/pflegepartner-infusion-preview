@@ -5,11 +5,11 @@
 
 :root {
   /* Marke */
-  --pp-red:        #E84030;  /* Primär — Haus im Logo, Haupt-CTA, Akzente */
-  --pp-red-bright: #F82828;  /* Akzent — Ring im Logo, Hover-States */
-  --pp-red-deep:   #C42E20;  /* nur für Text-auf-Weiss-Kontrast (Links/kleine Labels) */
-  --pp-rose:       #F0B8B0;  /* Soft — Karten-Hintergründe */
-  --pp-rose-tint:  #FBEDEA;  /* Sehr helles Rosa — Section-Backgrounds */
+  --pp-red:        #FD2926;  /* Primär (CI-fix) — Logo-Rot, Haupt-CTA, Akzente */
+  --pp-red-bright: #D31A18;  /* Hover-State — dunkler als Primär */
+  --pp-red-deep:   #AD3016;  /* Rost (CI) — Text-auf-Weiss-Kontrast (Links/kleine Labels) */
+  --pp-rose:       #DD9F9E;  /* Rosé-Akzent (CI) — Karten-Hintergründe */
+  --pp-rose-tint:  #F9E6EA;  /* Rosé-Blush (CI) — Section-Backgrounds */
   --pp-cream:      #FDF9F7;  /* Warmes Off-White — Haupt-Hintergrund */
   --pp-white:      #FFFFFF;
   --pp-ink:        #2A2A2A;  /* Text — warmes Fast-Schwarz */
@@ -17,7 +17,7 @@
 
   /* Abgeleitet */
   --pp-line:       #F0E2DD;  /* zarte Trennlinien */
-  --pp-shadow:     0 18px 50px -22px rgba(196, 46, 32, .28);
+  --pp-shadow:     0 18px 50px -22px rgba(105, 8, 15, .28);
   --pp-shadow-sm:  0 8px 24px -14px rgba(42, 42, 42, .30);
 
   /* Raster */
@@ -317,6 +317,8 @@ textarea.form-control { resize: vertical; min-height: 90px; }
 .plz-hint { font-size: .8rem; color: var(--pp-red-deep); background: var(--pp-rose-tint); border-radius: 10px; padding: .55rem .75rem; margin: -.3rem 0 1rem; }
 .form-privacy { margin-top: .9rem; font-size: .8rem; color: var(--pp-ink-soft); display: flex; gap: .45rem; align-items: flex-start; }
 .form-privacy svg { width: 15px; height: 15px; flex: none; margin-top: 2px; color: var(--pp-red); }
+.form-consent { display: flex; gap: .55rem; align-items: flex-start; font-size: .8rem; color: var(--pp-ink-soft); margin: .2rem 0 1rem; }
+.form-consent input { margin-top: 3px; accent-color: var(--pp-red); flex: none; }
 
 /* --- Footer ------------------------------------------------------- */
 .site-footer { background: var(--pp-ink); color: #d9d2cf; padding: clamp(2.5rem, 6vw, 3.5rem) 0 2rem; }

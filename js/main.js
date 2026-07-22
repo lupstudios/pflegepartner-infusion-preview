@@ -18,9 +18,9 @@
 
   /* --- Tracking-Helfer (fallen still aus, wenn Pixel/gtag nicht aktiv) --- */
   function trackLead(payload) {
-    try { if (window.fbq) window.fbq("track", "Lead", payload || {}); } catch (e) {}
+    // Absichtlich KEIN fbq('Lead') und KEINE Ads-Conversion hier:
+    // die zaehlbare Conversion feuert erst auf /danke — sonst wird doppelt gezaehlt.
     try {
-      if (window.gtag && GADS_SEND_TO) window.gtag("event", "conversion", { send_to: GADS_SEND_TO });
       if (window.dataLayer) window.dataLayer.push({
         event: "lead_submit",
         infusion: (payload && payload.infusion) || "",
@@ -112,6 +112,7 @@
         phone:    val("#phone"),
         email:    val("#email"),
         message:  val("#message"),
+        consent:  ($("#consent") && $("#consent").checked) ? "ja" : "",
         _subject: "Neue Infusions-Anfrage (Landingpage)"
       };
 
