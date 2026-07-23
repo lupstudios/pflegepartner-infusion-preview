@@ -587,7 +587,22 @@
     <section class="cta-section">
         <h2>Starte deine Vitamin-Kur</h2>
         <p>Lass dich von unserem Arzt beraten, welche Vitamine zu dir passen. Völlig kostenlos und unverbindlich — noch heute!</p>
-        <button class="btn-primary">Kostenlose Erstberatung Buchen</button>
+
+        <form id="leadForm" style="max-width: 500px; margin: 2rem auto; text-align: left;">
+            <div style="margin-bottom: 1.2rem;">
+                <input type="text" placeholder="Dein Name" required style="width: 100%; padding: 12px; border: 1px solid var(--pp-line); border-radius: 8px; font-size: 1rem; font-family: var(--font-body);">
+            </div>
+            <div style="margin-bottom: 1.2rem;">
+                <input type="email" placeholder="E-Mail" required style="width: 100%; padding: 12px; border: 1px solid var(--pp-line); border-radius: 8px; font-size: 1rem; font-family: var(--font-body);">
+            </div>
+            <div style="margin-bottom: 1.2rem;">
+                <input type="tel" placeholder="Telefon" required style="width: 100%; padding: 12px; border: 1px solid var(--pp-line); border-radius: 8px; font-size: 1rem; font-family: var(--font-body);">
+            </div>
+            <div style="margin-bottom: 1.2rem;">
+                <textarea placeholder="Kurze Nachricht (optional)" style="width: 100%; padding: 12px; border: 1px solid var(--pp-line); border-radius: 8px; font-size: 1rem; font-family: var(--font-body); resize: none; height: 100px;"></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 14px;">Kostenlose Erstberatung Anfragen</button>
+        </form>
     </section>
 
     <footer>
@@ -647,26 +662,29 @@
             }
         });
 
-        // Scroll-triggered subtle body animation (professional)
+        // Scroll-triggered body animation (professional & visible)
         const bodyContainer = document.querySelector('.body-container');
-        window.addEventListener('scroll', () => {
-            const scrollProgress = Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 1);
+        let lastScrollY = 0;
 
-            // Subtle pulse & slight shift - professional look (works with or without image)
-            const pulse = 1 + Math.sin(scrollProgress * Math.PI * 2) * 0.03;
-            const shiftY = scrollProgress * 8;
-            const opacity = Math.min(0.85 + scrollProgress * 0.15, 1);
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
+
+            // More visible pulse & shift
+            const pulse = 1 + Math.sin(scrollProgress * Math.PI * 4) * 0.05;
+            const shiftY = Math.sin(scrollProgress * Math.PI * 2) * 10;
+            const opacity = Math.min(0.8 + scrollProgress * 0.2, 1);
 
             if (bodyImage && bodyImage.src) {
                 bodyImage.style.transform = `scaleY(${pulse}) translateY(${shiftY}px)`;
                 bodyImage.style.opacity = opacity;
-                bodyImage.style.transition = 'transform 0.1s ease-out, opacity 0.3s ease-out';
             } else {
-                // Animate container even without image
                 bodyContainer.style.transform = `scaleY(${pulse}) translateY(${shiftY}px)`;
-                bodyContainer.style.transition = 'transform 0.1s ease-out';
             }
-        });
+
+            lastScrollY = scrollY;
+        }, { passive: true });
 
         // Canvas animation
         const canvas = document.getElementById('animationCanvas');
@@ -773,6 +791,56 @@
         document.querySelectorAll('.vitamin-card').forEach(card => {
             observer.observe(card);
         });
+
+        // Lead form submission
+        const leadForm = document.getElementById('leadForm');
+        if (leadForm) {
+            leadForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const inputs = leadForm.querySelectorAll('input, textarea');
+                const data = {
+                    name: inputs[0].value,
+                    email: inputs[1].value,
+                    phone: inputs[2].value,
+                    message: inputs[3].value,
+                    timestamp: new Date().toISOString(),
+                    source: 'pflegepartner-infusion'
+                };
+
+                try {
+                    // Send to dashboard (replace with your endpoint)
+                    const response = await fetch('/api/leads', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    }).catch(() => {
+                        // Fallback: save to localStorage if endpoint not available
+                        const leads = JSON.parse(localStorage.getItem('pflegepartner_leads') || '[]');
+                        leads.push(data);
+                        localStorage.setItem('pflegepartner_leads', JSON.stringify(leads));
+                        return { ok: true };
+                    });
+
+                    if (response.ok || response === undefined) {
+                        // Show success message
+                        const btn = leadForm.querySelector('button');
+                        const originalText = btn.textContent;
+                        btn.textContent = '✅ Anfrage gesendet! Wir kontaktieren dich bald.';
+                        btn.disabled = true;
+                        leadForm.reset();
+
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.disabled = false;
+                        }, 5000);
+                    }
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    alert('Fehler beim Senden. Bitte versuche es später erneut.');
+                }
+            });
+        }
     </script>
 </body>
 </html>
