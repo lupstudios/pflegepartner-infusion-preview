@@ -268,22 +268,15 @@
         }
 
         .visualization-label {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+            margin-top: 1.5rem;
+            text-align: center;
             color: var(--pp-red);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
             z-index: 10;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 6px 14px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 12px rgba(253, 41, 38, 0.15);
         }
 
         .vitamins-section {
@@ -520,10 +513,12 @@
             <div class="visualization-container">
                 <div class="visualization-box" id="vizBox">
                     <div class="body-container">
-                        <img id="bodyImage" class="body-image" alt="3D Body Visualization">
+                        <video id="bodyVideo" class="body-image" style="width: 100%; height: 100%; object-fit: contain;" autoplay muted loop playsinline>
+                            <source src="assets/body-video.mp4" type="video/mp4">
+                        </video>
+                        <img id="bodyImage" class="body-image" alt="3D Body Visualization" style="display: none;">
                         <canvas id="animationCanvas"></canvas>
                         <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-                        <button id="uploadBtn" style="position: absolute; z-index: 5; bottom: 15px; right: 15px; padding: 8px 16px; background: var(--pp-red); color: white; border: none; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 4px 12px rgba(253, 41, 38, 0.3);">📤 Upload</button>
                     </div>
                     <div class="visualization-label">Vitamine durch deinen Körper</div>
                 </div>
@@ -662,8 +657,9 @@
             }
         });
 
-        // Scroll-triggered body rotation (inside photo only)
+        // Scroll-triggered body animation (video + image)
         const bodyContainer = document.querySelector('.body-container');
+        const bodyVideo = document.getElementById('bodyVideo');
         let lastScrollY = 0;
 
         window.addEventListener('scroll', () => {
@@ -671,12 +667,15 @@
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             const scrollProgress = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
 
-            // 3D body rotation effect (scaleX creates illusion of body rotating inside)
+            // 3D body animation effect
             const scale = 0.95 + scrollProgress * 0.1;
             const skew = scrollProgress * 8;
             const opacity = Math.min(0.85 + scrollProgress * 0.15, 1);
 
-            if (bodyImage && bodyImage.src) {
+            if (bodyVideo) {
+                bodyVideo.style.transform = `scaleX(${scale}) skewY(${skew}deg)`;
+                bodyVideo.style.opacity = opacity;
+            } else if (bodyImage && bodyImage.src) {
                 bodyImage.style.transform = `scaleX(${scale}) skewY(${skew}deg)`;
                 bodyImage.style.opacity = opacity;
             } else {
