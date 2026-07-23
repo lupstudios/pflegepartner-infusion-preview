@@ -662,7 +662,7 @@
             }
         });
 
-        // Scroll-triggered rotation animation
+        // Scroll-triggered body rotation (inside photo only)
         const bodyContainer = document.querySelector('.body-container');
         let lastScrollY = 0;
 
@@ -671,17 +671,16 @@
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             const scrollProgress = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
 
-            // Full 360 rotation + opacity fade
-            const rotation = scrollProgress * 360;
-            const opacity = Math.min(0.8 + scrollProgress * 0.2, 1);
+            // 3D body rotation effect (scaleX creates illusion of body rotating inside)
+            const scale = 0.95 + scrollProgress * 0.1;
+            const skew = scrollProgress * 8;
+            const opacity = Math.min(0.85 + scrollProgress * 0.15, 1);
 
             if (bodyImage && bodyImage.src) {
-                bodyImage.style.transform = `rotateY(${rotation}deg)`;
+                bodyImage.style.transform = `scaleX(${scale}) skewY(${skew}deg)`;
                 bodyImage.style.opacity = opacity;
-                bodyImage.style.perspective = '1000px';
             } else {
-                bodyContainer.style.transform = `rotateY(${rotation}deg)`;
-                bodyContainer.style.perspective = '1000px';
+                bodyContainer.style.transform = `scaleX(${scale}) skewY(${skew}deg)`;
             }
 
             lastScrollY = scrollY;
