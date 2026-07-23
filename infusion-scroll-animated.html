@@ -648,19 +648,23 @@
         });
 
         // Scroll-triggered subtle body animation (professional)
-        let animationFrame = 0;
+        const bodyContainer = document.querySelector('.body-container');
         window.addEventListener('scroll', () => {
             const scrollProgress = Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 1);
 
-            // Subtle pulse & slight shift - professional look
-            if (bodyImage.src) {
-                const pulse = 1 + Math.sin(scrollProgress * Math.PI * 2) * 0.03;
-                const shiftY = scrollProgress * 8; // Slight vertical shift
-                const opacity = Math.min(0.85 + scrollProgress * 0.15, 1); // Fade in as scroll
+            // Subtle pulse & slight shift - professional look (works with or without image)
+            const pulse = 1 + Math.sin(scrollProgress * Math.PI * 2) * 0.03;
+            const shiftY = scrollProgress * 8;
+            const opacity = Math.min(0.85 + scrollProgress * 0.15, 1);
 
+            if (bodyImage && bodyImage.src) {
                 bodyImage.style.transform = `scaleY(${pulse}) translateY(${shiftY}px)`;
                 bodyImage.style.opacity = opacity;
                 bodyImage.style.transition = 'transform 0.1s ease-out, opacity 0.3s ease-out';
+            } else {
+                // Animate container even without image
+                bodyContainer.style.transform = `scaleY(${pulse}) translateY(${shiftY}px)`;
+                bodyContainer.style.transition = 'transform 0.1s ease-out';
             }
         });
 
