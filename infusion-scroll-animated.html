@@ -662,7 +662,7 @@
             }
         });
 
-        // Scroll-triggered body animation (professional & visible)
+        // Scroll-triggered rotation animation
         const bodyContainer = document.querySelector('.body-container');
         let lastScrollY = 0;
 
@@ -671,16 +671,17 @@
             const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             const scrollProgress = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
 
-            // More visible pulse & shift
-            const pulse = 1 + Math.sin(scrollProgress * Math.PI * 4) * 0.05;
-            const shiftY = Math.sin(scrollProgress * Math.PI * 2) * 10;
+            // Full 360 rotation + opacity fade
+            const rotation = scrollProgress * 360;
             const opacity = Math.min(0.8 + scrollProgress * 0.2, 1);
 
             if (bodyImage && bodyImage.src) {
-                bodyImage.style.transform = `scaleY(${pulse}) translateY(${shiftY}px)`;
+                bodyImage.style.transform = `rotateY(${rotation}deg)`;
                 bodyImage.style.opacity = opacity;
+                bodyImage.style.perspective = '1000px';
             } else {
-                bodyContainer.style.transform = `scaleY(${pulse}) translateY(${shiftY}px)`;
+                bodyContainer.style.transform = `rotateY(${rotation}deg)`;
+                bodyContainer.style.perspective = '1000px';
             }
 
             lastScrollY = scrollY;
