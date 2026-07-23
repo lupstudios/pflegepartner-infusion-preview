@@ -517,6 +517,7 @@
                         <img id="bodyImage" class="body-image" alt="3D Body Visualization">
                         <canvas id="animationCanvas"></canvas>
                         <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                        <button id="uploadBtn" style="position: absolute; z-index: 5; bottom: 40px; padding: 10px 20px; background: var(--pp-red); color: white; border: none; border-radius: 20px; font-weight: 600; cursor: pointer; font-size: 14px;">📤 Upload Image</button>
                     </div>
                     <div class="visualization-label">Vitamine durch deinen Körper</div>
                 </div>
@@ -592,6 +593,7 @@
         const vizBox = document.getElementById('vizBox');
         const bodyImage = document.getElementById('bodyImage');
         const imageUpload = document.getElementById('imageUpload');
+        const uploadBtn = document.getElementById('uploadBtn');
 
         function loadImage(file) {
             if (file && file.type.startsWith('image/')) {
@@ -599,19 +601,21 @@
                 reader.onload = (event) => {
                     bodyImage.src = event.target.result;
                     bodyImage.style.display = 'block';
-                    vizBox.style.cursor = 'default';
+                    uploadBtn.style.display = 'none';
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        // Click to upload
-        vizBox.addEventListener('click', () => {
+        // Upload button click
+        uploadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             imageUpload.click();
         });
 
+        // File input change
         imageUpload.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
+            if (e.target.files && e.target.files.length > 0) {
                 loadImage(e.target.files[0]);
             }
         });
@@ -632,9 +636,8 @@
             e.preventDefault();
             vizBox.style.opacity = '1';
             vizBox.style.backgroundColor = '';
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                loadImage(files[0]);
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                loadImage(e.dataTransfer.files[0]);
             }
         });
 
