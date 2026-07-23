@@ -8,7 +8,11 @@
   /* --- KONFIG: vor Livegang anpassen ------------------------------ */
   // Formspree / Make-Endpoint für Lead-Weiterleitung (Zieladresse intern konfigurieren).
   // Solange leer, wird kein Request gesendet (Seite funktioniert trotzdem: Tracking + /danke).
-  var FORM_ENDPOINT = ""; // z.B. "https://formspree.io/f/xxxxxxx"
+  var FORM_ENDPOINT = "https://pflegepartner-leads-production.up.railway.app/api/lead";
+  // Lokaler Test: Landingpage auf localhost spricht das lokale Leads-Dashboard an
+  if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+    FORM_ENDPOINT = "http://localhost:4174/api/lead";
+  }
   var THANKS_URL = "danke.html"; // eigene URL /danke für sauberes Conversion-Tracking
   // Google-Ads Conversion-Label (TODO): "AW-XXXXXXXXXX/xxxxxxxxxxxxxxx"
   var GADS_SEND_TO = "";
