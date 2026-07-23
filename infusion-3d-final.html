@@ -216,21 +216,71 @@
             font-size: 1rem;
         }
 
-        .hero-image {
+        .hero-upload {
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transform: scale(0.8) rotateY(15deg);
+            transform: scale(0.8) rotateY(-15deg);
             perspective: 1200px;
         }
 
-        .product-image {
-            max-width: 100%;
-            height: auto;
-            width: 280px;
+        .upload-area {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1;
+            border: 3px dashed rgba(253, 41, 38, 0.5);
             border-radius: 20px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(253, 41, 38, 0.05);
+            position: relative;
+        }
+
+        .upload-area:hover {
+            border-color: var(--pp-red);
+            background: rgba(253, 41, 38, 0.1);
+            transform: scale(1.05);
+        }
+
+        .upload-area input {
+            display: none;
+        }
+
+        .upload-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
+        }
+
+        .upload-text p {
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+            font-weight: 500;
+        }
+
+        .upload-text .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .uploaded-image {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 20px;
+            object-fit: contain;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            box-shadow: 0 40px 80px rgba(253, 41, 38, 0.3);
+            display: none;
+        }
+
+        .uploaded-image.show {
             display: block;
         }
 
@@ -511,8 +561,16 @@
                     <button class="btn-primary btn-cta">Kostenlose Erstberatung</button>
                 </div>
 
-                <div class="hero-image">
-                    <img src="assets/vitamin-c-product.png" alt="Vitamin C Präparat" class="product-image" onerror="this.src='assets/vitamin-c-product.svg'">
+                <div class="hero-upload">
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="imageInput" accept="image/*">
+                        <div class="upload-text">
+                            <div class="icon">📸</div>
+                            <p>Klick zum Hochladen</p>
+                            <p style="font-size: 0.8rem; opacity: 0.6;">oder Drag & Drop</p>
+                        </div>
+                    </div>
+                    <img id="uploadedImage" class="uploaded-image" alt="Hochgeladenes Bild">
                 </div>
             </div>
         </section>
@@ -636,7 +694,7 @@
             duration: 1,
             ease: "power3.out"
         }, 0.4)
-        .to(".hero-image", {
+        .to(".hero-upload", {
             opacity: 1,
             scale: 1,
             rotateY: 0,
@@ -769,6 +827,51 @@
             duration: 0.8,
             ease: "power3.out",
             delay: 0.35
+        });
+
+        // Image upload handler
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+        const uploadedImage = document.getElementById('uploadedImage');
+
+        uploadArea.addEventListener('click', () => imageInput.click());
+
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedImage.src = event.target.result;
+                    uploadedImage.classList.add('show');
+                    uploadArea.style.display = 'none';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--pp-red)';
+            uploadArea.style.background = 'rgba(253, 41, 38, 0.15)';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'rgba(253, 41, 38, 0.5)';
+            uploadArea.style.background = 'rgba(253, 41, 38, 0.05)';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'rgba(253, 41, 38, 0.5)';
+            uploadArea.style.background = 'rgba(253, 41, 38, 0.05)';
+
+            const files = e.dataTransfer.files;
+            if (files[0]) {
+                imageInput.files = files;
+                const event = new Event('change', { bubbles: true });
+                imageInput.dispatchEvent(event);
+            }
         });
 
         // Form submission handler
