@@ -248,13 +248,14 @@
         }
 
         .body-image {
-            width: 90%;
-            height: 90%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             z-index: 1;
             filter: drop-shadow(0 0 12px rgba(253, 41, 38, 0.2));
             opacity: 0;
             animation: fadeIn 0.8s ease 0.5s forwards;
+            border-radius: 20px;
         }
 
         canvas {
@@ -513,8 +514,9 @@
             <div class="visualization-container">
                 <div class="visualization-box" id="vizBox">
                     <div class="body-container">
-                        <img id="bodyImage" class="body-image" src="assets/body-visualization.jpg" alt="3D Body Visualization" style="display: none;">
+                        <img id="bodyImage" class="body-image" alt="3D Body Visualization">
                         <canvas id="animationCanvas"></canvas>
+                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
                     </div>
                     <div class="visualization-label">Vitamine durch deinen Körper</div>
                 </div>
@@ -586,31 +588,65 @@
     </footer>
 
     <script>
-        // Image upload via drag & drop
+        // Image upload via drag & drop or file input
         const vizBox = document.getElementById('vizBox');
         const bodyImage = document.getElementById('bodyImage');
+        const imageUpload = document.getElementById('imageUpload');
 
+        function loadImage(file) {
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    bodyImage.src = event.target.result;
+                    bodyImage.style.display = 'block';
+                    vizBox.style.cursor = 'default';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Click to upload
+        vizBox.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        imageUpload.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                loadImage(e.target.files[0]);
+            }
+        });
+
+        // Drag & drop
         vizBox.addEventListener('dragover', (e) => {
             e.preventDefault();
-            vizBox.style.opacity = '0.8';
+            vizBox.style.opacity = '0.7';
+            vizBox.style.backgroundColor = '#f0e2dd';
         });
 
         vizBox.addEventListener('dragleave', () => {
             vizBox.style.opacity = '1';
+            vizBox.style.backgroundColor = '';
         });
 
         vizBox.addEventListener('drop', (e) => {
             e.preventDefault();
             vizBox.style.opacity = '1';
+            vizBox.style.backgroundColor = '';
             const files = e.dataTransfer.files;
             if (files.length > 0) {
-                const file = files[0];
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    bodyImage.src = event.target.result;
-                    bodyImage.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
+                loadImage(files[0]);
+            }
+        });
+
+        // Scroll-triggered body animation
+        window.addEventListener('scroll', () => {
+            const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const rotation = scrollProgress * 360;
+            const scale = 1 + scrollProgress * 0.1;
+
+            if (bodyImage.src) {
+                bodyImage.style.transform = `rotateY(${rotation}deg) scale(${scale})`;
+                bodyImage.style.transition = 'transform 0.05s ease-out';
             }
         });
 
