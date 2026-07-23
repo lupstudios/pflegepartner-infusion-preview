@@ -221,7 +221,7 @@
         .visualization-box {
             width: 100%;
             height: 100%;
-            background: linear-gradient(150deg, var(--pp-rose) 0%, var(--pp-rose-tint) 60%, #fff 100%);
+            background: transparent;
             border-radius: 20px;
             padding: 0;
             display: flex;
@@ -229,8 +229,8 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--pp-shadow);
-            border: 1px solid var(--pp-line);
+            box-shadow: none;
+            border: none;
             cursor: grab;
         }
 
@@ -771,8 +771,9 @@
             requestAnimationFrame(animate);
         }
 
-        createParticles();
-        animate();
+        // Particles disabled - clean view
+        // createParticles();
+        // animate();
 
         // Scroll animations
         const observerOptions = {
