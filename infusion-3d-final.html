@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pflegepartner 3D – Immersive Video Experience</title>
+    <title>Pflegepartner 3D – Vitaminpräparat auf Mass</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -14,12 +14,9 @@
             --pp-red: #FD2926;
             --pp-red-bright: #D31A18;
             --pp-rose: #DD9F9E;
-            --pp-rose-tint: #F9E6EA;
             --pp-cream: #FDF9F7;
             --pp-white: #FFFFFF;
             --pp-ink: #2A2A2A;
-            --pp-ink-soft: #6B6360;
-            --pp-shadow: 0 40px 100px rgba(0,0,0,0.3);
         }
 
         * {
@@ -74,7 +71,7 @@
             top: 0;
             width: 100%;
             z-index: 2000;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 1rem 2rem;
@@ -121,85 +118,84 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 6rem 2rem;
             position: relative;
-            perspective: 1200px;
         }
 
-        .section-content {
-            max-width: 1000px;
+        /* ========== HERO SECTION ========== */
+        .hero-section {
+            padding-top: 8rem;
+        }
+
+        .hero-content {
+            max-width: 1200px;
             width: 100%;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(30px);
-            padding: 4rem;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
 
-        .hero-section .section-content {
-            background: rgba(0, 0, 0, 0.5);
-            margin-top: -60px;
+        .hero-text {
+            display: flex;
+            flex-direction: column;
         }
 
-        .section h2 {
-            font-size: clamp(2.5rem, 10vw, 5rem);
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 7vw, 4rem);
             font-family: "Poppins";
             font-weight: 700;
             margin-bottom: 1.5rem;
             opacity: 0;
-            transform: translate3d(0, 100px, -200px) rotateX(45deg) rotateY(-15deg);
-            letter-spacing: -1px;
+            transform: translateX(-60px);
             line-height: 1.1;
         }
 
-        .section h2 .accent {
+        .hero-text h1 .accent {
             color: var(--pp-red);
             text-shadow: 0 0 30px rgba(253, 41, 38, 0.5);
         }
 
-        .section p {
-            font-size: 1.2rem;
+        .hero-text p {
+            font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 2rem;
             opacity: 0;
-            transform: translate3d(0, 100px, -200px) rotateX(45deg) rotateY(15deg);
-            color: rgba(255, 255, 255, 0.9);
+            transform: translateX(-60px);
+            color: rgba(255, 255, 255, 0.85);
         }
 
         .price {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--pp-red);
             margin: 2rem 0;
             opacity: 0;
-            transform: translate3d(0, 100px, -200px) rotateX(45deg) scale(0.5);
-            text-shadow: 0 0 40px rgba(253, 41, 38, 0.6);
+            transform: translateX(-60px);
+            text-shadow: 0 0 30px rgba(253, 41, 38, 0.4);
         }
 
         .features {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
             margin: 2rem 0;
             opacity: 0;
-            transform: translate3d(0, 100px, -200px) rotateX(45deg);
+            transform: translateX(-60px);
         }
 
         .feature {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 1rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 500;
         }
 
         .feature::before {
             content: "✓";
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             background: var(--pp-red);
             color: white;
             display: flex;
@@ -213,26 +209,55 @@
 
         .btn-cta {
             opacity: 0;
-            transform: scale(0.5) rotateX(45deg);
-            margin-top: 2rem;
+            transform: scale(0.8);
+            align-self: flex-start;
+            margin-top: 1.5rem;
             padding: 1.2rem 2.5rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
-        /* ========== VITAMINS GRID ========== */
+        .hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.8) rotateY(15deg);
+            perspective: 1200px;
+        }
+
+        .product-image {
+            max-width: 100%;
+            height: auto;
+            width: 280px;
+            border-radius: 20px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            display: block;
+        }
+
+        /* ========== VITAMINS SECTION ========== */
         .vitamins-section .section-content {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 0;
-            border-radius: 0;
-            border: none;
-            box-shadow: none;
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .section-heading {
+            opacity: 0;
+            transform: translateY(60px);
+            margin-bottom: 3rem;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-family: "Poppins";
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
         .vitamins-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            padding: 2rem;
         }
 
         .vitamin-card {
@@ -242,19 +267,19 @@
             border-radius: 20px;
             padding: 2rem;
             opacity: 0;
-            transform: translate3d(0, 150px, -300px) rotateX(60deg) rotateY(20deg) rotateZ(10deg);
+            transform: translateY(80px) rotateX(30deg);
             transition: all 0.4s ease;
             cursor: pointer;
         }
 
         .vitamin-card:hover {
-            transform: translate3d(0, -20px, 100px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            transform: translateY(-10px) rotateX(0deg);
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 40px rgba(253, 41, 38, 0.3);
         }
 
         .vitamin-icon {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             display: block;
             transition: transform 0.3s;
@@ -265,7 +290,7 @@
         }
 
         .vitamin-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-family: "Poppins";
             font-weight: 700;
             margin-bottom: 0.8rem;
@@ -275,8 +300,186 @@
         .vitamin-card p {
             font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.7);
-            opacity: 1;
-            transform: none;
+        }
+
+        /* ========== CTA SECTION ========== */
+        .cta-section .section-content {
+            max-width: 800px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 4rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-family: "Poppins";
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-btn {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* ========== PRODUCT SHOWCASE SECTION ========== */
+        .product-showcase-section {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .product-showcase-content {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .product-showcase {
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.7) rotateY(30deg) rotateX(10deg);
+            perspective: 1200px;
+        }
+
+        .showcase-image {
+            max-width: 320px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 50px 120px rgba(253, 41, 38, 0.3);
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+
+        .product-showcase:hover .showcase-image {
+            transform: scale(1.05);
+            box-shadow: 0 60px 150px rgba(253, 41, 38, 0.4);
+        }
+
+        /* ========== FORM SECTION ========== */
+        .form-section {
+            padding: 4rem 2rem !important;
+        }
+
+        .form-container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(30px);
+            padding: 4rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-container h2 {
+            font-size: 2.5rem;
+            font-family: "Poppins";
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .form-container > p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .product-showcase {
+            text-align: center;
+            margin: 3rem 0;
+            opacity: 0;
+            transform: scale(0.8) rotateY(15deg);
+        }
+
+        .product-showcase img {
+            max-width: 280px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 30px 60px rgba(253, 41, 38, 0.2);
+            display: inline-block;
+        }
+
+        .consultation-form {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: "Inter", system-ui, sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--pp-red);
+            box-shadow: 0 0 20px rgba(253, 41, 38, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .consultation-form button {
+            margin-top: 1rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            margin-top: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
         /* ========== FOOTER ========== */
@@ -287,21 +490,26 @@
             text-align: center;
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         @media (max-width: 900px) {
-            .section-content {
-                padding: 2rem;
-            }
-
-            .section h2 {
-                font-size: 2rem;
-            }
-
-            .vitamins-grid {
+            .hero-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .product-image {
+                width: 240px;
+            }
+
+            .btn-cta {
+                align-self: center;
             }
         }
     </style>
@@ -325,24 +533,32 @@
     <div class="content-wrapper">
         <!-- HERO SECTION -->
         <section class="section hero-section">
-            <div class="section-content">
-                <h2>Vitaminpräparat auf <span class="accent">Mass</span></h2>
-                <p>Gezielte Einzelpräparate — wähle genau die Mikronährstoffe, die dein Körper braucht.</p>
-                <div class="price">ab CHF 200.–</div>
-                <div class="features">
-                    <div class="feature">Individuell zusammengestellt</div>
-                    <div class="feature">Ärztlich begleitet & beraten</div>
-                    <div class="feature">Diplomierte Pflegefachfrauen</div>
-                    <div class="feature">Direkt bei dir zuhause</div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Vitaminpräparat auf <span class="accent">Mass</span></h1>
+                    <p>Gezielte Einzelpräparate — wähle genau die Mikronährstoffe, die dein Körper braucht.</p>
+                    <div class="price">ab CHF 200.–</div>
+                    <div class="features">
+                        <div class="feature">Individuell zusammengestellt</div>
+                        <div class="feature">Ärztlich begleitet & beraten</div>
+                        <div class="feature">Diplomierte Pflegefachfrauen</div>
+                        <div class="feature">Direkt bei dir zuhause</div>
+                    </div>
+                    <button class="btn-primary btn-cta">Kostenlose Erstberatung</button>
                 </div>
-                <button class="btn-primary btn-cta">Kostenlose Erstberatung</button>
+
+                <div class="hero-image">
+                    <img src="assets/vitamin-c-product.svg" alt="Vitamin C Präparat" class="product-image">
+                </div>
             </div>
         </section>
 
         <!-- VITAMINS SECTION -->
         <section class="section vitamins-section">
             <div class="section-content">
-                <h2 style="opacity: 0; transform: translate3d(0, 100px, -200px) rotateX(45deg);">Welche Vitamine brauchst du?</h2>
+                <div class="section-heading">
+                    <h2>Welche Vitamine brauchst du?</h2>
+                </div>
                 <div class="vitamins-grid">
                     <div class="vitamin-card">
                         <span class="vitamin-icon">👁️</span>
@@ -372,11 +588,54 @@
         </section>
 
         <!-- CTA SECTION -->
-        <section class="section">
+        <section class="section cta-section">
             <div class="section-content">
                 <h2>Starte deine Vitamin-Kur</h2>
                 <p>Vollständig kostenlos und unverbindlich — noch heute!</p>
                 <button class="btn-primary btn-cta">Kostenlose Erstberatung Buchen</button>
+            </div>
+        </section>
+
+        <!-- PRODUCT SHOWCASE SECTION -->
+        <section class="section product-showcase-section">
+            <div class="product-showcase-content">
+                <div class="product-showcase">
+                    <img src="assets/vitamin-c-product.svg" alt="Vitamin C Präparat" class="showcase-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- FORM SECTION -->
+        <section class="section form-section">
+            <div class="form-container">
+                <h2>Kostenlose Erstberatung</h2>
+                <p>Fülle das Formular aus und wir melden uns bald bei dir</p>
+
+                <form id="consultationForm" class="consultation-form">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefon *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Nachricht</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Anfrage Senden</button>
+                </form>
+
+                <p class="form-note">Deine Daten werden sicher übertragen und nicht an Dritte weitergegeben.</p>
             </div>
         </section>
     </div>
@@ -389,54 +648,48 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero section entrance animation
+        // Hero entrance animations
         const heroTl = gsap.timeline();
-        const heroContent = document.querySelector('.hero-section .section-content');
 
-        heroTl.to(heroContent.querySelector('h2'), {
+        heroTl.to(".hero-text h1", {
             opacity: 1,
-            y: 0,
-            z: 0,
-            rotateX: 0,
-            rotateY: 0,
-            duration: 1.2,
+            x: 0,
+            duration: 1,
             ease: "power3.out"
         }, 0)
-        .to(heroContent.querySelector('p'), {
+        .to(".hero-text p", {
             opacity: 1,
-            y: 0,
-            z: 0,
-            rotateX: 0,
+            x: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, 0.15)
+        .to(".price", {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, 0.25)
+        .to(".features", {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power3.out"
+        }, 0.35)
+        .to(".btn-cta", {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, 0.4)
+        .to(".hero-image", {
+            opacity: 1,
+            scale: 1,
             rotateY: 0,
             duration: 1.2,
             ease: "power3.out"
-        }, 0.1)
-        .to(heroContent.querySelector('.price'), {
-            opacity: 1,
-            y: 0,
-            z: 0,
-            rotateX: 0,
-            scale: 1,
-            duration: 1.2,
-            ease: "power3.out"
-        }, 0.2)
-        .to(heroContent.querySelector('.features'), {
-            opacity: 1,
-            y: 0,
-            z: 0,
-            rotateX: 0,
-            duration: 1.2,
-            ease: "power3.out"
-        }, 0.3)
-        .to(heroContent.querySelector('.btn-cta'), {
-            opacity: 1,
-            scale: 1,
-            rotateX: 0,
-            duration: 1.2,
-            ease: "power3.out"
-        }, 0.4);
+        }, 0.1);
 
-        // Video overlay animation based on scroll
+        // Video overlay animation
         gsap.to(".video-overlay", {
             scrollTrigger: {
                 trigger: "body",
@@ -448,51 +701,22 @@
             ease: "none"
         });
 
-        // Section animations on scroll
-        gsap.utils.toArray('.section:not(.hero-section)').forEach((section, index) => {
-            const heading = section.querySelector('h2');
-            const content = section.querySelector('.section-content');
-
-            if (heading) {
-                gsap.to(heading, {
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 80%",
-                        end: "center 50%",
-                        scrub: 1,
-                        markers: false
-                    },
-                    opacity: 1,
-                    y: 0,
-                    z: 0,
-                    rotateX: 0,
-                    rotateY: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
-            }
-
-            const cta = section.querySelector('.btn-cta');
-            if (cta) {
-                gsap.to(cta, {
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 80%",
-                        end: "center 50%",
-                        scrub: 1
-                    },
-                    opacity: 1,
-                    scale: 1,
-                    rotateX: 0,
-                    duration: 1,
-                    ease: "power3.out",
-                    delay: 0.3
-                });
-            }
+        // Section heading animations
+        gsap.to(".section-heading", {
+            scrollTrigger: {
+                trigger: ".section-heading",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out"
         });
 
-        // Vitamin cards staggered 3D animations
-        gsap.utils.toArray('.vitamin-card').forEach((card, index) => {
+        // Vitamin cards staggered animations
+        gsap.utils.toArray(".vitamin-card").forEach((card, index) => {
             gsap.to(card, {
                 scrollTrigger: {
                     trigger: card,
@@ -502,14 +726,137 @@
                 },
                 opacity: 1,
                 y: 0,
-                z: 0,
                 rotateX: 0,
-                rotateY: 0,
-                rotateZ: 0,
                 duration: 0.8,
                 ease: "power3.out",
                 delay: index * 0.08
             });
+        });
+
+        // CTA section animations
+        gsap.to(".cta-section h2", {
+            scrollTrigger: {
+                trigger: ".cta-section h2",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+
+        gsap.to(".cta-section p", {
+            scrollTrigger: {
+                trigger: ".cta-section p",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+
+        // Product showcase animation
+        gsap.to(".product-showcase", {
+            scrollTrigger: {
+                trigger: ".product-showcase",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            scale: 1,
+            rotateY: 0,
+            rotateX: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+
+        // Form animations
+        gsap.to(".form-container h2", {
+            scrollTrigger: {
+                trigger: ".form-container h2",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+
+        gsap.to(".form-container > p", {
+            scrollTrigger: {
+                trigger: ".form-container > p",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.15
+        });
+
+        gsap.to(".consultation-form", {
+            scrollTrigger: {
+                trigger: ".consultation-form",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.25
+        });
+
+        gsap.to(".form-note", {
+            scrollTrigger: {
+                trigger: ".form-note",
+                start: "top 80%",
+                end: "center 50%",
+                scrub: 1
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            delay: 0.35
+        });
+
+        // Form submission handler
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            // Save to localStorage
+            const formData = {
+                name: name,
+                email: email,
+                phone: phone,
+                message: message,
+                timestamp: new Date().toISOString()
+            };
+
+            let submissions = JSON.parse(localStorage.getItem('consultationSubmissions') || '[]');
+            submissions.push(formData);
+            localStorage.setItem('consultationSubmissions', JSON.stringify(submissions));
+
+            // Show success message
+            alert('Danke! Wir melden uns bald bei dir.');
+            this.reset();
         });
 
         // Parallax video effect
@@ -520,8 +867,8 @@
                 end: "bottom bottom",
                 scrub: 1
             },
-            scale: 1.1,
-            y: 100,
+            scale: 1.05,
+            y: 50,
             ease: "none"
         });
     </script>
