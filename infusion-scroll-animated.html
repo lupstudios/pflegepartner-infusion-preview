@@ -269,15 +269,21 @@
 
         .visualization-label {
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: var(--pp-red-deep);
-            font-size: 0.75rem;
+            color: var(--pp-red);
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             z-index: 10;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 14px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(253, 41, 38, 0.15);
         }
 
         .vitamins-section {
@@ -641,15 +647,20 @@
             }
         });
 
-        // Scroll-triggered body animation
+        // Scroll-triggered subtle body animation (professional)
+        let animationFrame = 0;
         window.addEventListener('scroll', () => {
-            const scrollProgress = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-            const rotation = scrollProgress * 360;
-            const scale = 1 + scrollProgress * 0.1;
+            const scrollProgress = Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 1);
 
+            // Subtle pulse & slight shift - professional look
             if (bodyImage.src) {
-                bodyImage.style.transform = `rotateY(${rotation}deg) scale(${scale})`;
-                bodyImage.style.transition = 'transform 0.05s ease-out';
+                const pulse = 1 + Math.sin(scrollProgress * Math.PI * 2) * 0.03;
+                const shiftY = scrollProgress * 8; // Slight vertical shift
+                const opacity = Math.min(0.85 + scrollProgress * 0.15, 1); // Fade in as scroll
+
+                bodyImage.style.transform = `scaleY(${pulse}) translateY(${shiftY}px)`;
+                bodyImage.style.opacity = opacity;
+                bodyImage.style.transition = 'transform 0.1s ease-out, opacity 0.3s ease-out';
             }
         });
 
