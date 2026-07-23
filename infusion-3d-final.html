@@ -334,42 +334,6 @@
             transform: scale(0.8);
         }
 
-        /* ========== PRODUCT SHOWCASE SECTION ========== */
-        .product-showcase-section {
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 2rem;
-        }
-
-        .product-showcase-content {
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .product-showcase {
-            text-align: center;
-            opacity: 0;
-            transform: scale(0.7) rotateY(30deg) rotateX(10deg);
-            perspective: 1200px;
-        }
-
-        .showcase-image {
-            max-width: 320px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 50px 120px rgba(253, 41, 38, 0.3);
-            display: inline-block;
-            transition: all 0.4s ease;
-        }
-
-        .product-showcase:hover .showcase-image {
-            transform: scale(1.05);
-            box-shadow: 0 60px 150px rgba(253, 41, 38, 0.4);
-        }
-
         /* ========== FORM SECTION ========== */
         .form-section {
             padding: 4rem 2rem !important;
@@ -548,7 +512,7 @@
                 </div>
 
                 <div class="hero-image">
-                    <img src="assets/vitamin-c-product.svg" alt="Vitamin C Präparat" class="product-image">
+                    <img src="assets/vitamin-c-product.png" alt="Vitamin C Präparat" class="product-image">
                 </div>
             </div>
         </section>
@@ -593,15 +557,6 @@
                 <h2>Starte deine Vitamin-Kur</h2>
                 <p>Vollständig kostenlos und unverbindlich — noch heute!</p>
                 <button class="btn-primary btn-cta">Kostenlose Erstberatung Buchen</button>
-            </div>
-        </section>
-
-        <!-- PRODUCT SHOWCASE SECTION -->
-        <section class="section product-showcase-section">
-            <div class="product-showcase-content">
-                <div class="product-showcase">
-                    <img src="assets/vitamin-c-product.svg" alt="Vitamin C Präparat" class="showcase-image">
-                </div>
             </div>
         </section>
 
@@ -757,22 +712,6 @@
             opacity: 1,
             y: 0,
             duration: 0.8,
-            ease: "power3.out"
-        });
-
-        // Product showcase animation
-        gsap.to(".product-showcase", {
-            scrollTrigger: {
-                trigger: ".product-showcase",
-                start: "top 80%",
-                end: "center 50%",
-                scrub: 1
-            },
-            opacity: 1,
-            scale: 1,
-            rotateY: 0,
-            rotateX: 0,
-            duration: 1,
             ease: "power3.out"
         });
 
