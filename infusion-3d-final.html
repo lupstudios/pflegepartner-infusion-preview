@@ -773,6 +773,21 @@
             ease: "power3.out"
         });
 
+        // Product upload scroll animation
+        gsap.to(".hero-upload", {
+            scrollTrigger: {
+                trigger: ".hero-section",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1
+            },
+            rotateY: 30,
+            scale: 0.95,
+            opacity: 0.8,
+            y: 100,
+            ease: "none"
+        });
+
         // Form animations
         gsap.to(".form-container h2", {
             scrollTrigger: {
