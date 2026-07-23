@@ -849,6 +849,24 @@
         const imageInput = document.getElementById('imageInput');
         const uploadedImage = document.getElementById('uploadedImage');
 
+        // Load saved image on page load
+        function loadSavedImage() {
+            const savedImage = localStorage.getItem('productImage');
+            if (savedImage) {
+                uploadedImage.src = savedImage;
+                uploadedImage.classList.add('show');
+                uploadArea.style.display = 'none';
+            }
+        }
+
+        // Save and display uploaded image
+        function saveAndDisplayImage(dataUrl) {
+            localStorage.setItem('productImage', dataUrl);
+            uploadedImage.src = dataUrl;
+            uploadedImage.classList.add('show');
+            uploadArea.style.display = 'none';
+        }
+
         uploadArea.addEventListener('click', () => imageInput.click());
 
         imageInput.addEventListener('change', (e) => {
@@ -856,13 +874,14 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    uploadedImage.src = event.target.result;
-                    uploadedImage.classList.add('show');
-                    uploadArea.style.display = 'none';
+                    saveAndDisplayImage(event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
         });
+
+        // Load image on page load
+        loadSavedImage();
 
         // Drag and drop
         uploadArea.addEventListener('dragover', (e) => {
