@@ -526,61 +526,135 @@
                     <svg id="bodySvg" viewBox="0 0 400 600">
                         <defs>
                             <filter id="glow-orange">
-                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
                                 <feMerge>
                                     <feMergeNode in="coloredBlur"/>
                                     <feMergeNode in="SourceGraphic"/>
                                 </feMerge>
                             </filter>
                             <filter id="glow-cyan">
-                                <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                                <feGaussianBlur stdDeviation="7" result="coloredBlur"/>
                                 <feMerge>
                                     <feMergeNode in="coloredBlur"/>
                                     <feMergeNode in="SourceGraphic"/>
                                 </feMerge>
                             </filter>
                             <linearGradient id="nerveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#FFB84D;stop-opacity:0.8" />
-                                <stop offset="100%" style="stop-color:#FF8000;stop-opacity:1" />
+                                <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#FFA500;stop-opacity:0.9" />
+                                <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:0.8" />
                             </linearGradient>
                             <linearGradient id="vesselGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#00FFFF;stop-opacity:0.8" />
-                                <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:1" />
+                                <stop offset="0%" style="stop-color:#00FFFF;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#00E5FF;stop-opacity:0.95" />
+                                <stop offset="100%" style="stop-color:#00B8D4;stop-opacity:0.9" />
                             </linearGradient>
+                            <filter id="meshGlow">
+                                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
                         </defs>
 
                         <g id="bodyGroup" transform="translate(200, 300)">
-                            <!-- Nervous System -->
-                            <g id="nervousSystem" class="nervous-system">
-                                <line x1="0" y1="-220" x2="0" y2="-100" stroke="url(#nerveGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="-50" y1="-180" x2="-70" y2="-140" stroke="url(#nerveGradient)" stroke-width="3" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="50" y1="-180" x2="70" y2="-140" stroke="url(#nerveGradient)" stroke-width="3" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="0" y1="-100" x2="-70" y2="-40" stroke="url(#nerveGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="0" y1="-100" x2="70" y2="-40" stroke="url(#nerveGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="-70" y1="-40" x2="-120" y2="20" stroke="url(#nerveGradient)" stroke-width="2.5" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="70" y1="-40" x2="120" y2="20" stroke="url(#nerveGradient)" stroke-width="2.5" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="0" y1="0" x2="-50" y2="100" stroke="url(#nerveGradient)" stroke-width="3" stroke-linecap="round" filter="url(#glow-orange)"/>
-                                <line x1="0" y1="0" x2="50" y2="100" stroke="url(#nerveGradient)" stroke-width="3" stroke-linecap="round" filter="url(#glow-orange)"/>
+                            <!-- Detailed Body Mesh/Wireframe -->
+                            <g id="bodyMesh" opacity="0.15" filter="url(#meshGlow)">
+                                <!-- Head mesh -->
+                                <circle cx="0" cy="-220" r="50" fill="none" stroke="rgba(0, 212, 255, 0.3)" stroke-width="0.5"/>
+                                <circle cx="0" cy="-220" r="45" fill="none" stroke="rgba(0, 212, 255, 0.3)" stroke-width="0.5"/>
+                                <circle cx="0" cy="-220" r="40" fill="none" stroke="rgba(0, 212, 255, 0.3)" stroke-width="0.5"/>
+
+                                <!-- Torso mesh grid -->
+                                <line x1="-50" y1="-160" x2="50" y2="-160" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
+                                <line x1="-55" y1="-120" x2="55" y2="-120" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
+                                <line x1="-60" y1="-80" x2="60" y2="-80" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
+                                <line x1="-65" y1="-40" x2="65" y2="-40" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
+                                <line x1="-70" y1="0" x2="70" y2="0" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
+
+                                <!-- Vertical mesh lines -->
+                                <line x1="-50" y1="-160" x2="-70" y2="0" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
+                                <line x1="0" y1="-170" x2="0" y2="80" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
+                                <line x1="50" y1="-160" x2="70" y2="0" stroke="rgba(0, 212, 255, 0.2)" stroke-width="0.5"/>
                             </g>
 
-                            <!-- Vascular System -->
-                            <g id="vascularSystem" class="vascular-system">
-                                <line x1="0" y1="-150" x2="0" y2="60" stroke="url(#vesselGradient)" stroke-width="5" stroke-linecap="round" filter="url(#glow-cyan)"/>
-                                <line x1="0" y1="-150" x2="-85" y2="-110" stroke="url(#vesselGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow-cyan)"/>
-                                <line x1="0" y1="-150" x2="85" y2="-110" stroke="url(#vesselGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow-cyan)"/>
-                                <line x1="-85" y1="-110" x2="-130" y2="-30" stroke="url(#vesselGradient)" stroke-width="3" stroke-linecap="round" filter="url(#glow-cyan)"/>
-                                <line x1="85" y1="-110" x2="130" y2="-30" stroke="url(#vesselGradient)" stroke-width="3" stroke-linecap="round" filter="url(#glow-cyan)"/>
-                                <line x1="0" y1="0" x2="-60" y2="90" stroke="url(#vesselGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow-cyan)"/>
-                                <line x1="0" y1="0" x2="60" y2="90" stroke="url(#vesselGradient)" stroke-width="4" stroke-linecap="round" filter="url(#glow-cyan)"/>
+                            <!-- Central Spinal Cord - Golden -->
+                            <g id="spinalCord" filter="url(#glow-orange)">
+                                <line x1="0" y1="-220" x2="0" y2="80" stroke="url(#nerveGradient)" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+                                <line x1="-2" y1="-220" x2="-2" y2="80" stroke="url(#nerveGradient)" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+                                <line x1="2" y1="-220" x2="2" y2="80" stroke="url(#nerveGradient)" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
                             </g>
 
-                            <!-- Body outline -->
-                            <circle cx="0" cy="-220" r="45" fill="rgba(0, 212, 255, 0.08)"/>
-                            <rect x="-55" y="-150" width="110" height="160" rx="25" fill="rgba(0, 212, 255, 0.05)"/>
-                            <line x1="0" y1="-100" x2="-110" y2="60" stroke="rgba(0, 212, 255, 0.06)" stroke-width="40" stroke-linecap="round"/>
-                            <line x1="0" y1="-100" x2="110" y2="60" stroke="rgba(0, 212, 255, 0.06)" stroke-width="40" stroke-linecap="round"/>
-                            <line x1="-35" y1="10" x2="-35" y2="160" stroke="rgba(0, 212, 255, 0.06)" stroke-width="45" stroke-linecap="round"/>
-                            <line x1="35" y1="10" x2="35" y2="160" stroke="rgba(0, 212, 255, 0.06)" stroke-width="45" stroke-linecap="round"/>
+                            <!-- Brain Network -->
+                            <g id="brainNetwork" filter="url(#glow-orange)">
+                                <line x1="0" y1="-240" x2="-40" y2="-200" stroke="url(#nerveGradient)" stroke-width="2.5" stroke-linecap="round"/>
+                                <line x1="0" y1="-240" x2="40" y2="-200" stroke="url(#nerveGradient)" stroke-width="2.5" stroke-linecap="round"/>
+                                <line x1="-40" y1="-200" x2="-50" y2="-170" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="40" y1="-200" x2="50" y2="-170" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="-50" y1="-170" x2="-60" y2="-140" stroke="url(#nerveGradient)" stroke-width="1.5" stroke-linecap="round"/>
+                                <line x1="50" y1="-170" x2="60" y2="-140" stroke="url(#nerveGradient)" stroke-width="1.5" stroke-linecap="round"/>
+                            </g>
+
+                            <!-- Peripheral Nervous System -->
+                            <g id="nervousSystem" class="nervous-system" filter="url(#glow-orange)">
+                                <!-- Shoulder nerves -->
+                                <line x1="0" y1="-130" x2="-80" y2="-100" stroke="url(#nerveGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+                                <line x1="0" y1="-130" x2="80" y2="-100" stroke="url(#nerveGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+
+                                <!-- Arm nerves -->
+                                <line x1="-80" y1="-100" x2="-120" y2="20" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="80" y1="-100" x2="120" y2="20" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="-120" y1="20" x2="-140" y2="80" stroke="url(#nerveGradient)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                                <line x1="120" y1="20" x2="140" y2="80" stroke="url(#nerveGradient)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+                                <!-- Abdominal plexus -->
+                                <line x1="0" y1="-20" x2="-50" y2="0" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="0" y1="-20" x2="50" y2="0" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+                                <!-- Leg nerves -->
+                                <line x1="0" y1="40" x2="-50" y2="100" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="0" y1="40" x2="50" y2="100" stroke="url(#nerveGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="-50" y1="100" x2="-55" y2="160" stroke="url(#nerveGradient)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                                <line x1="50" y1="100" x2="55" y2="160" stroke="url(#nerveGradient)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                            </g>
+
+                            <!-- Vascular System - Detailed -->
+                            <g id="vascularSystem" class="vascular-system" filter="url(#glow-cyan)">
+                                <!-- Main aorta -->
+                                <line x1="0" y1="-140" x2="0" y2="80" stroke="url(#vesselGradient)" stroke-width="6" stroke-linecap="round" opacity="0.95"/>
+
+                                <!-- Carotid arteries -->
+                                <line x1="0" y1="-180" x2="-35" y2="-160" stroke="url(#vesselGradient)" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+                                <line x1="0" y1="-180" x2="35" y2="-160" stroke="url(#vesselGradient)" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+                                <line x1="-35" y1="-160" x2="-45" y2="-140" stroke="url(#vesselGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="35" y1="-160" x2="45" y2="-140" stroke="url(#vesselGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.7"/>
+
+                                <!-- Shoulder arteries -->
+                                <line x1="0" y1="-120" x2="-75" y2="-90" stroke="url(#vesselGradient)" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+                                <line x1="0" y1="-120" x2="75" y2="-90" stroke="url(#vesselGradient)" stroke-width="3.5" stroke-linecap="round" opacity="0.85"/>
+
+                                <!-- Arm vessels -->
+                                <line x1="-75" y1="-90" x2="-115" y2="10" stroke="url(#vesselGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+                                <line x1="75" y1="-90" x2="115" y2="10" stroke="url(#vesselGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+                                <line x1="-115" y1="10" x2="-135" y2="70" stroke="url(#vesselGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                                <line x1="115" y1="10" x2="135" y2="70" stroke="url(#vesselGradient)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+                                <!-- Mesenteric arteries -->
+                                <line x1="0" y1="-30" x2="-45" y2="-10" stroke="url(#vesselGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+                                <line x1="0" y1="-30" x2="45" y2="-10" stroke="url(#vesselGradient)" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+
+                                <!-- Iliac arteries -->
+                                <line x1="0" y1="50" x2="-50" y2="90" stroke="url(#vesselGradient)" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+                                <line x1="0" y1="50" x2="50" y2="90" stroke="url(#vesselGradient)" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+                                <line x1="-50" y1="90" x2="-55" y2="160" stroke="url(#vesselGradient)" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+                                <line x1="50" y1="90" x2="55" y2="160" stroke="url(#vesselGradient)" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+                            </g>
+
+                            <!-- Body glow/outline -->
+                            <ellipse cx="0" cy="-200" rx="55" ry="60" fill="none" stroke="rgba(0, 212, 255, 0.08)" stroke-width="2"/>
+                            <ellipse cx="0" cy="-50" rx="75" ry="85" fill="none" stroke="rgba(0, 212, 255, 0.08)" stroke-width="2"/>
+                            <ellipse cx="0" cy="80" rx="65" ry="40" fill="none" stroke="rgba(0, 212, 255, 0.08)" stroke-width="2"/>
 
                             <!-- Vitamin particles -->
                             <g id="vitaminParticles"></g>
