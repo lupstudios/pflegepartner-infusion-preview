@@ -270,7 +270,6 @@
       </div>
       <div class="vit-picker reveal">
         <h3>Welche Vitamine brauchst du?</h3>
-        <p>Individuell zusammengestellt für deine Gesundheitsziele</p>
         <div class="vit-opts" id="vit-opts">
           <button type="button" class="vit-opt" data-v="Vitamin A">Vitamin A</button>
           <button type="button" class="vit-opt" data-v="B-Vitamine">B-Vitamine</button>
@@ -287,19 +286,50 @@
   </section>
 
   <style>
+    .vit-section-3d {
+      perspective: 1200px;
+    }
+
     .vit-section-3d .skeleton-bg {
       animation: skeletonFloat 6s ease-in-out infinite alternate, skeletonRotate 8s linear infinite;
-      filter: drop-shadow(0 0 20px rgba(253, 41, 38, 0.15));
+      filter: drop-shadow(0 0 30px rgba(253, 41, 38, 0.2));
+      transform-style: preserve-3d;
+      will-change: transform;
     }
 
     @keyframes skeletonFloat {
-      from { transform: translateY(-50%) translateY(0px) rotateZ(-5deg); }
-      to { transform: translateY(-50%) translateY(20px) rotateZ(5deg); }
+      from {
+        transform: translateY(-50%) translateY(0px) rotateZ(-8deg) rotateX(5deg);
+      }
+      to {
+        transform: translateY(-50%) translateY(30px) rotateZ(8deg) rotateX(-5deg);
+      }
     }
 
     @keyframes skeletonRotate {
-      from { transform: translateY(-50%) perspective(1000px) rotateY(0deg); }
-      to { transform: translateY(-50%) perspective(1000px) rotateY(360deg); }
+      from {
+        transform: translateY(-50%) perspective(1200px) rotateY(0deg) rotateX(0deg);
+      }
+      to {
+        transform: translateY(-50%) perspective(1200px) rotateY(360deg) rotateX(10deg);
+      }
+    }
+
+    /* Scroll trigger animation */
+    .vit-section-3d .skeleton-bg.scroll-animate {
+      animation: skeletonScrollRotate linear forwards;
+    }
+
+    @keyframes skeletonScrollRotate {
+      0% {
+        transform: translateY(-50%) perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1);
+      }
+      50% {
+        transform: translateY(-50%) perspective(1200px) rotateY(180deg) rotateX(15deg) scale(1.05);
+      }
+      100% {
+        transform: translateY(-50%) perspective(1200px) rotateY(360deg) rotateX(0deg) scale(1);
+      }
     }
 
     @media (max-width: 900px) {
@@ -307,10 +337,30 @@
         width: 250px;
         height: 400px;
         right: -100px;
-        opacity: 0.04;
+        opacity: 0.05;
       }
     }
   </style>
+
+  <script>
+    // 3D Scroll animation for skeleton
+    window.addEventListener('scroll', function() {
+      const skeletonBg = document.querySelector('.vit-section-3d .skeleton-bg');
+      const section = document.querySelector('.vit-section-3d');
+
+      if (skeletonBg && section) {
+        const rect = section.getBoundingClientRect();
+        const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+
+        // Apply 3D rotation based on scroll
+        const rotateY = scrollPercent * 360;
+        const rotateX = (scrollPercent - 0.5) * 30;
+        const scale = 1 + (scrollPercent * 0.1);
+
+        skeletonBg.style.transform = `translateY(-50%) perspective(1200px) rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(${scale})`;
+      }
+    });
+  </script>
 
   <!-- Vitamin-Beschreibungen -->
   <section class="section section--tint">
