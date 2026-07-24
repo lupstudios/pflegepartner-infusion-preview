@@ -201,13 +201,12 @@
           Infusion bei dir zuhause · Zürcher Unterland
         </span>
         <h1>Vitaminpräparat</h1>
-        <p class="p-price"><span class="p-price__val">ab CHF 200.–</span> <span class="p-price__note">Endpreis inkl. Anfahrt, Material &amp; Betreuung</span></p>
         <p class="hero__sub">Gezielte Einzelpräparate statt Kombiprodukt: Vitamin A, verschiedene B-Vitamine, Vitamin C oder Vitamin D — du wählst genau die Mikronährstoffe, die dein Körper aktuell braucht.</p>
         <ul class="p-bullets">
           <li><span class="p-tick" aria-hidden="true">✓</span>Einzelne Vitamine, gezielt gewählt</li>
           <li><span class="p-tick" aria-hidden="true">✓</span>Einzeln oder sinnvoll kombiniert</li>
           <li><span class="p-tick" aria-hidden="true">✓</span>Beratung auf Wunsch mit unserem Arzt</li>
-          <li><span class="p-tick" aria-hidden="true">✓</span>Preis je nach Präparatwahl ab CHF 200</li>
+          <li><span class="p-tick" aria-hidden="true">✓</span>Direkt bei dir zuhause</li>
         </ul>
         <div class="hero__cta">
           <a href="#anfrage" class="btn btn--primary" data-scroll>Vitaminpräparat anfragen</a>
@@ -238,31 +237,11 @@
 
   <!-- Vitamin-Auswahl -->
   <section class="section vit-section-3d" style="position: relative; overflow: hidden;">
-    <!-- 3D Skeleton Background Animation -->
-    <svg class="skeleton-bg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="position: absolute; right: -50px; top: 50%; transform: translateY(-50%); width: 400px; height: 600px; opacity: 0.08; z-index: 0; pointer-events: none;">
-      <!-- Skull -->
-      <circle cx="100" cy="50" r="30" stroke="#FD2926" stroke-width="2" fill="none"/>
-      <!-- Jaw -->
-      <line x1="75" y1="75" x2="125" y2="75" stroke="#FD2926" stroke-width="2"/>
-      <!-- Spine -->
-      <line x1="100" y1="80" x2="100" y2="320" stroke="#FD2926" stroke-width="3"/>
-      <!-- Ribs -->
-      <line x1="60" y1="120" x2="140" y2="120" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
-      <line x1="55" y1="150" x2="145" y2="150" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
-      <line x1="60" y1="180" x2="140" y2="180" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
-      <line x1="65" y1="210" x2="135" y2="210" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
-      <line x1="70" y1="240" x2="130" y2="240" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
-      <!-- Arms -->
-      <line x1="100" y1="100" x2="40" y2="160" stroke="#FD2926" stroke-width="2"/>
-      <line x1="100" y1="100" x2="160" y2="160" stroke="#FD2926" stroke-width="2"/>
-      <!-- Pelvis -->
-      <ellipse cx="100" cy="280" rx="35" ry="25" stroke="#FD2926" stroke-width="2" fill="none"/>
-      <!-- Legs -->
-      <line x1="80" y1="305" x2="70" y2="390" stroke="#FD2926" stroke-width="2"/>
-      <line x1="120" y1="305" x2="130" y2="390" stroke="#FD2926" stroke-width="2"/>
-    </svg>
+    <!-- 3D Body Video Background — scrubs with scroll like a video -->
+    <video class="vit-body-bg" src="assets/body-video.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+    <div class="vit-body-veil" aria-hidden="true"></div>
 
-    <div class="wrap" style="position: relative; z-index: 1;">
+    <div class="wrap" style="position: relative; z-index: 2;">
       <div class="section__head reveal">
         <span class="eyebrow">Interaktiv</span>
         <h2>Stell dein Präparat zusammen</h2>
@@ -287,79 +266,89 @@
 
   <style>
     .vit-section-3d {
-      perspective: 1200px;
+      min-height: 110vh;
+      display: flex;
+      align-items: center;
     }
 
-    .vit-section-3d .skeleton-bg {
-      animation: skeletonFloat 6s ease-in-out infinite alternate, skeletonRotate 8s linear infinite;
-      filter: drop-shadow(0 0 30px rgba(253, 41, 38, 0.2));
-      transform-style: preserve-3d;
+    .vit-body-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      pointer-events: none;
+      transform: scale(1.08);
       will-change: transform;
     }
 
-    @keyframes skeletonFloat {
-      from {
-        transform: translateY(-50%) translateY(0px) rotateZ(-8deg) rotateX(5deg);
-      }
-      to {
-        transform: translateY(-50%) translateY(30px) rotateZ(8deg) rotateX(-5deg);
-      }
+    /* Veil: keeps text readable at top/bottom, video clearly visible in the middle */
+    .vit-body-veil {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg,
+        rgba(253, 249, 247, 0.96) 0%,
+        rgba(253, 249, 247, 0.55) 24%,
+        rgba(253, 249, 247, 0.18) 55%,
+        rgba(253, 249, 247, 0.92) 100%);
     }
 
-    @keyframes skeletonRotate {
-      from {
-        transform: translateY(-50%) perspective(1200px) rotateY(0deg) rotateX(0deg);
-      }
-      to {
-        transform: translateY(-50%) perspective(1200px) rotateY(360deg) rotateX(10deg);
-      }
-    }
-
-    /* Scroll trigger animation */
-    .vit-section-3d .skeleton-bg.scroll-animate {
-      animation: skeletonScrollRotate linear forwards;
-    }
-
-    @keyframes skeletonScrollRotate {
-      0% {
-        transform: translateY(-50%) perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1);
-      }
-      50% {
-        transform: translateY(-50%) perspective(1200px) rotateY(180deg) rotateX(15deg) scale(1.05);
-      }
-      100% {
-        transform: translateY(-50%) perspective(1200px) rotateY(360deg) rotateX(0deg) scale(1);
-      }
+    .vit-section-3d .section__head h2,
+    .vit-section-3d .section__head p {
+      text-shadow: 0 1px 12px rgba(253, 249, 247, 0.9);
     }
 
     @media (max-width: 900px) {
-      .vit-section-3d .skeleton-bg {
-        width: 250px;
-        height: 400px;
-        right: -100px;
-        opacity: 0.05;
+      .vit-section-3d {
+        min-height: 90vh;
       }
     }
   </style>
 
   <script>
-    // 3D Scroll animation for skeleton
-    window.addEventListener('scroll', function() {
-      const skeletonBg = document.querySelector('.vit-section-3d .skeleton-bg');
-      const section = document.querySelector('.vit-section-3d');
+    // Scroll-scrubbed 3D body video: scrolling drives the video like a timeline
+    (function () {
+      var video = document.querySelector('.vit-body-bg');
+      var section = document.querySelector('.vit-section-3d');
+      if (!video || !section) return;
 
-      if (skeletonBg && section) {
-        const rect = section.getBoundingClientRect();
-        const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      var targetProgress = 0;
+      var currentTime = 0;
+      var duration = 0;
 
-        // Apply 3D rotation based on scroll
-        const rotateY = scrollPercent * 360;
-        const rotateX = (scrollPercent - 0.5) * 30;
-        const scale = 1 + (scrollPercent * 0.1);
+      video.addEventListener('loadedmetadata', function () {
+        duration = video.duration || 0;
+      });
+      video.load();
 
-        skeletonBg.style.transform = `translateY(-50%) perspective(1200px) rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(${scale})`;
+      function onScroll() {
+        var rect = section.getBoundingClientRect();
+        var total = rect.height + window.innerHeight;
+        var progress = (window.innerHeight - rect.top) / total;
+        targetProgress = Math.max(0, Math.min(1, progress));
+
+        // Subtle parallax zoom while scrolling
+        video.style.transform = 'scale(' + (1.08 + targetProgress * 0.12) + ')';
       }
-    });
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Smooth the scrub so it feels like the video is playing
+      (function tick() {
+        if (duration) {
+          var target = targetProgress * (duration - 0.05);
+          currentTime += (target - currentTime) * 0.12;
+          if (Math.abs(video.currentTime - currentTime) > 0.01) {
+            try { video.currentTime = currentTime; } catch (e) {}
+          }
+        }
+        requestAnimationFrame(tick);
+      })();
+    })();
   </script>
 
   <!-- Vitamin-Beschreibungen -->
