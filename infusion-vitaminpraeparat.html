@@ -242,7 +242,7 @@
     <div class="vit-body-veil" aria-hidden="true"></div>
 
     <div class="wrap" style="position: relative; z-index: 2;">
-      <div class="section__head reveal">
+      <div class="section__head vit-head-3d">
         <span class="eyebrow">Interaktiv</span>
         <h2>Stell dein Präparat zusammen</h2>
         <p>Tippe an, was dich interessiert — wir übernehmen deine Auswahl direkt in die Anfrage. Die finale Zusammenstellung besprichst du mit unserem Arzt.</p>
@@ -269,6 +269,17 @@
       min-height: 110vh;
       display: flex;
       align-items: center;
+    }
+
+    .vit-section-3d .wrap {
+      perspective: 1000px;
+    }
+
+    .vit-head-3d {
+      transform-origin: 50% 100%;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+      opacity: 0;
     }
 
     .vit-body-bg {
@@ -324,6 +335,8 @@
       });
       video.load();
 
+      var head = document.querySelector('.vit-head-3d');
+
       function onScroll() {
         var rect = section.getBoundingClientRect();
         var total = rect.height + window.innerHeight;
@@ -332,17 +345,36 @@
 
         // Subtle parallax zoom while scrolling
         video.style.transform = 'scale(' + (1.08 + targetProgress * 0.12) + ')';
+
+        // Heading tilts in from 3D depth, scrubbed by scroll
+        if (head) {
+          var hr = head.getBoundingClientRect();
+          var start = window.innerHeight;
+          var end = window.innerHeight * 0.4;
+          var hp = (start - hr.top) / (start - end);
+          hp = Math.max(0, Math.min(1, hp));
+          var ease = hp * hp * (3 - 2 * hp);
+          head.style.opacity = ease;
+          head.style.transform =
+            'translateY(' + ((1 - ease) * 90) + 'px)' +
+            ' translateZ(' + ((1 - ease) * -220) + 'px)' +
+            ' rotateX(' + ((1 - ease) * 55) + 'deg)';
+        }
       }
 
       window.addEventListener('scroll', onScroll, { passive: true });
+      document.addEventListener('scroll', onScroll, { passive: true, capture: true });
       onScroll();
 
-      // Smooth the scrub so it feels like the video is playing
+      // Smooth the scrub so it feels like the video is playing.
+      // onScroll() runs every frame too — robust even if scroll events
+      // fire on an inner scroller instead of window.
       (function tick() {
+        onScroll();
         if (duration) {
           var target = targetProgress * (duration - 0.05);
           currentTime += (target - currentTime) * 0.12;
-          if (Math.abs(video.currentTime - currentTime) > 0.01) {
+          if (Math.abs(video.currentTime - currentTime) > 0.02) {
             try { video.currentTime = currentTime; } catch (e) {}
           }
         }
