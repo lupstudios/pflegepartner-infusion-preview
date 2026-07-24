@@ -237,8 +237,32 @@
   </section>
 
   <!-- Vitamin-Auswahl -->
-  <section class="section">
-    <div class="wrap">
+  <section class="section vit-section-3d" style="position: relative; overflow: hidden;">
+    <!-- 3D Skeleton Background Animation -->
+    <svg class="skeleton-bg" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" style="position: absolute; right: -50px; top: 50%; transform: translateY(-50%); width: 400px; height: 600px; opacity: 0.08; z-index: 0; pointer-events: none;">
+      <!-- Skull -->
+      <circle cx="100" cy="50" r="30" stroke="#FD2926" stroke-width="2" fill="none"/>
+      <!-- Jaw -->
+      <line x1="75" y1="75" x2="125" y2="75" stroke="#FD2926" stroke-width="2"/>
+      <!-- Spine -->
+      <line x1="100" y1="80" x2="100" y2="320" stroke="#FD2926" stroke-width="3"/>
+      <!-- Ribs -->
+      <line x1="60" y1="120" x2="140" y2="120" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
+      <line x1="55" y1="150" x2="145" y2="150" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
+      <line x1="60" y1="180" x2="140" y2="180" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
+      <line x1="65" y1="210" x2="135" y2="210" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
+      <line x1="70" y1="240" x2="130" y2="240" stroke="#FD2926" stroke-width="2" opacity="0.6"/>
+      <!-- Arms -->
+      <line x1="100" y1="100" x2="40" y2="160" stroke="#FD2926" stroke-width="2"/>
+      <line x1="100" y1="100" x2="160" y2="160" stroke="#FD2926" stroke-width="2"/>
+      <!-- Pelvis -->
+      <ellipse cx="100" cy="280" rx="35" ry="25" stroke="#FD2926" stroke-width="2" fill="none"/>
+      <!-- Legs -->
+      <line x1="80" y1="305" x2="70" y2="390" stroke="#FD2926" stroke-width="2"/>
+      <line x1="120" y1="305" x2="130" y2="390" stroke="#FD2926" stroke-width="2"/>
+    </svg>
+
+    <div class="wrap" style="position: relative; z-index: 1;">
       <div class="section__head reveal">
         <span class="eyebrow">Interaktiv</span>
         <h2>Stell dein Präparat zusammen</h2>
@@ -246,7 +270,7 @@
       </div>
       <div class="vit-picker reveal">
         <h3>Welche Vitamine brauchst du?</h3>
-        <p>Einzeln oder sinnvoll kombiniert — ab CHF 200 je nach Präparatwahl.</p>
+        <p>Individuell zusammengestellt für deine Gesundheitsziele</p>
         <div class="vit-opts" id="vit-opts">
           <button type="button" class="vit-opt" data-v="Vitamin A">Vitamin A</button>
           <button type="button" class="vit-opt" data-v="B-Vitamine">B-Vitamine</button>
@@ -257,9 +281,36 @@
         </div>
         <div class="vit-summary" id="vit-summary">Noch nichts ausgewählt — tippe oben auf ein Vitamin.</div>
         <a class="btn btn--primary" id="vit-cta" href="#anfrage" data-scroll>Auswahl unverbindlich anfragen</a>
+        <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--pp-ink-soft);"><strong style="color: var(--pp-red); font-size: 1.1rem;">ab CHF 200.–</strong> je nach Präparatwahl — inklusive ärztliche Beratung</p>
       </div>
     </div>
   </section>
+
+  <style>
+    .vit-section-3d .skeleton-bg {
+      animation: skeletonFloat 6s ease-in-out infinite alternate, skeletonRotate 8s linear infinite;
+      filter: drop-shadow(0 0 20px rgba(253, 41, 38, 0.15));
+    }
+
+    @keyframes skeletonFloat {
+      from { transform: translateY(-50%) translateY(0px) rotateZ(-5deg); }
+      to { transform: translateY(-50%) translateY(20px) rotateZ(5deg); }
+    }
+
+    @keyframes skeletonRotate {
+      from { transform: translateY(-50%) perspective(1000px) rotateY(0deg); }
+      to { transform: translateY(-50%) perspective(1000px) rotateY(360deg); }
+    }
+
+    @media (max-width: 900px) {
+      .vit-section-3d .skeleton-bg {
+        width: 250px;
+        height: 400px;
+        right: -100px;
+        opacity: 0.04;
+      }
+    }
+  </style>
 
   <!-- Vitamin-Beschreibungen -->
   <section class="section section--tint">
